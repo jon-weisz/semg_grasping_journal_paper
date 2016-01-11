@@ -1,0 +1,54 @@
+\subsection{The Promise of Assistive Robotics}
+
+With recent advances in robotics and computer vision, it is possible to imagine a
+robotic  system  to  assist  people  with  severely  limiting  disabilities  in  activities  of
+daily living, improving their quality of life. Common daily activities frequently require the user
+to grasp an object stably in a context aware way. Complex hands and manipulators
+increase the flexibility and grasping capabilities of a robotic assistant, but at the cost
+of requiring more complex control of many simultaneous degrees of freedom (DOF). 
+
+This work presents an assistive grasping system
+for people  with  upper  limb  mobility
+impairments using a human-in-the-loop paradigm that allows a disabled user to grasp objects
+from a table using a novel, non-invasive surface electromyography (sEMG) based input device even in somewhat cluttered scenes. The novel device measures  only  a  single  differential  sEMG  signal  at  one
+muscle site on the user. The system puts the user in control of a multi-phase grasping pipeline that includes object recognition, integrated pre-planned and on-line grasp planning with feedback  to  help  the  user  plan  robust  grasps  in  near  real-time.  
+% Although progress in the robotics field has been swift, it is unlikely that truly independent operation of robots in situations where they will interact closely with objects, obstacles, and perhaps even other people in their environment will evolve in the immediate future. With the help of a human operator, it is possible to achieve robust and safe operation in complex environments. 
+%Grasping is particularly important for many activities of daily living (ADL) that physically impaired %individuals need assistance performing, such as fetching food or communication devices.
+
+The individuals with the greatest need for assistive technologies are those with severe impairments. Due to these impairments, they are often limited in their ability to provide input to an assistive device. Some current methods include sEMG, electroencephalography(EEG), eye-tracking, and sip-puff devices. In general, these devices are restricted to low bandwidth, noisy signals. Therefore, using these devices to control high DOF assistive grasping device poses many challenges.  Our solution is to combine intelligent online grasp planning with limited HitL assistance.
+
+\subsection{The Challenge of Robotic Grasping}
+Irrespective of the problems posed by limited input devices, robotic grasping is challenging for a number of reasons. Complex robotic hands have many DOFs, so the space of possible grasps is large and computationally expensive to explore. Standard approaches to planning in high dimensional state spaces are likely to fail with multi-fingered hands, especially as the grasp itself involves purposeful collision with the object, but most of the "near grasp" states will be overlapping the object in some way. Second, evaluating grasps involves several properties that are difficult to model, such as friction and closed chain kinematics. Many state-of-the-art analysis tools are only effective if the contact points can be perfectly predicted and the grasp acquisition can be perfectly controlled so that the object is not moved. Finally, robotic hands are extremely heterogeneous in terms of their physical size, the arrangement of their sensors, and their actuators, which makes designing generic grasp planning algorithms difficult.
+
+In addition to all of these issues, in natural environments any set of grasps that is preplanned may overlap with obstacles in the environment or fail to grasp the object in a way that is well suited to the desired use of the object. Thus grasp planning algorithms must be fast enough to run online and be able to reflect the intent of the use of the grasp beyond simple stability.
+
+This paper describes an sEMG driven assistive grasping platform integrating human in the loop planning in planning through an augmented reality interface. We present the iterative development process we have used to arrive at our final system, comparing different user interface paradigms and grasp planners presented in our previous papers addressing this problem (\cite{Weisz2012c,Weisz2013,Weisz2014}).  Then, we present new results from our final user validation study of our sEMG paradigm which addresses grasping in clutter with both known and unknown objects.
+The key contributions of this work include:
+\begin{itemize}
+
+\item 
+Design and comparison of three different user interfaces for assistive grasping.
+\item
+Integration  with  a  novel  sEMG  input  device  which  relies  on
+only  a  single  muscle  site.
+\item
+A  new  UI  that  improves  the
+disabled  user’s  ability  to  understand  the  scene  and  produce
+correct grasps in complex, cluttered environments.
+\item
+Grasp reachability analysis and feedback to the user.
+\item
+Online assessment of the desired approach direction.
+\item
+Evaluation of this system on an impaired user in a remote location.
+\item
+A demonstration
+that this new UI is descriptive enough for the user to operate
+in an environment that they have never seen
+\item 
+The ability to grasp known and unknown objects amidst clutter
+\item
+Demonstration of the system on two different sets of hardware
+\item 
+Experimental results from both healthy and impaired users.
+\end{itemize}

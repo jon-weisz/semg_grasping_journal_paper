@@ -1,0 +1,91 @@
+\documentclass[10pt, journal]{IEEEtran}
+\usepackage{amsthm,amssymb,natbib,url,amsmath}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{graphicx}
+
+
+
+\newtheorem{theorem}{Theorem}
+
+
+
+%%%Article information%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\journal{Journal name}
+%\volume{000}
+%\issue{00}
+%\copyrightline{$\copyright$ Copyright}
+%\firstpage{1}
+%\lastpage{13}
+%\doi{doi number}
+%\articletype{Article type}
+%\pubyear{2015}
+%%%%%%%%%%%%%%Article information%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\markboth{Running head left side}{Running head right side}
+
+
+\begin{document}
+
+%\title{Assistive Robotic Grasping}
+
+\title{Assistive Grasping with an Augmented Reality UI}
+
+%\author{G.R. Thomson and C. Constanda\thanks{Corresponding author;
+%e-mail: christian-constanda@utulsa.edu}}
+
+
+
+\author{Jonathan Weisz, Alexander G. Barszap*, Sanjay S. Joshi*, Carmen Elvezio, Benjamin Shababo and Peter K. Allen\\
+Department of Computer Science, Columbia University\\
+*Department of Mechanical and Aerospace Engineering, University of California, Davis}
+
+%\address{Department of Computer Science, Columbia University\\
+%*Department of Mechanical and Aerospace Engineering, University of California, Davis}
+
+
+\maketitle
+
+\begin{abstract}
+Assisting impaired individuals with robotic devices is an emerging and potentially transformative technology.  This paper describes the design of an assistive robotic grasping system that allows impaired individuals to interact with the system in a Human-in-the-Loop (HitL) manner, including the use of a novel cranio-facial electromyography input device. The system uses an augmented reality interface that allows a user to plan a grasp online that matches their task oriented intent. The system uses grasp quality measurements that generate more robust grasps by considering the local geometry of the object and the effect of uncertainty during grasp acquisition. This interface is validated by testing with real users, both healthy and impaired. This work forms the foundation for a flexible, fully featured HitL system that allows users to grasp known and unknown objects in cluttered spaces using novel, practical Human Robot Interaction paradigms that have the potential to bring HiTL assistive devices out of the research environment and into the lives of those that need them. 
+% We present a series of experiments refining a Human-in-the-Loop assistive grasping system designed for low throughput, high noise interfaces such as surface electromyography of cranial and facial muscles. We use grasp quality measurements that generate more robust grasps by considering the local geometry of the object as well as how uncertainty will affect the proposed grasp. These new measures are integrated into an augmented reality interface that allows a user to plan a grasp online that matches their intent for using the object that is to be grasped.  This interface is validated by testing with real users, both healthy and impaired. This work forms the foundation for a flexible, fully featured HitL system that will allow users to grasp objects in cluttered spaces using novel, practical BCI devices that have the potential to bring HiTL assistive devices out of the research environment and into the lives of those that need them. 
+\end{abstract}
+
+%\keywords{Assistive Robotics, Grasp Planning, Electromyography,}
+
+\section{Introduction}
+
+\input{intro}
+
+\section{Related Work}
+
+\input{related_work}
+
+\input{face_grasping}
+
+\input{semg_face_grasping.tex}
+
+%%%%Named reference model and we can use the same as numbered reference
+%%%%giving option by using natbib package
+
+
+\bibliographystyle{named}
+\bibliography{references/refs,references/references2,references/bci_refs2,references/grasp_quality}
+
+
+
+
+%%%%%%%%DOCUMENT END HERE
+\end{document}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%FOR BIB DATABASE%%%%%%%%%
+
+
+

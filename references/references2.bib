@@ -1,0 +1,720 @@
+@article{McGeer01041990,
+  author = {McGeer, Tad}, 
+  title = {\href{http://ijr.sagepub.com/content/9/2/62.abstract}{Passive Dynamic Walking}}, 
+  volume = {9}, 
+  number = {2}, 
+  pages = {62-82}, 
+  year = {1990}, 
+  journal = {The International Journal of Robotics Research}
+}
+
+@article{kalman1960new,
+  title={A new approach to linear filtering and prediction problems},
+  author={Kalman, R.E.},
+  journal={Journal of Basic Engineering},
+  volume={82},
+  number={1},
+  pages={35--45},
+  year={1960},
+}
+
+@inproceedings{ferraricanny,
+    abstract = {The authors address the problem of planning optimal grasps. Two general optimality criteria that consider the total finger force and the maximum finger force are introduced and discussed. Their formalization using various metrics on a space of generalized forces is detailed. The geometric interpretation of the two criteria leads to an efficient planning algorithm. An example of its use in a robotic environment equipped with two-jaw and three-jaw is described},
+    author = {Ferrari, Carlo and Canny, John},
+    booktitle = {Proc. of the Int. Conf. on Robotics and Automation},
+    day = {06},
+    keywords = {contact\_points},
+    location = {Nice, France},
+    month = {August},
+    pages = {2290--2295},
+    priority = {2},
+    title = {Planning optimal grasps},
+    year = {1992}
+}
+
+@INPROCEEDINGS{eigengrasp, 
+author={Ciocarlie, Matei T. and Allen, Peter K.}, 
+booktitle={The International Journal of Robotics Research}, 
+title={Hand Posture Subspaces for Dexterous Robotic Grasping}, 
+year={2009}, 
+month={Jul.}, 
+volume={28}, 
+number={}, 
+pages={851-867}, 
+}
+
+@inproceedings{biomimetic,
+abstract = {In this paper we outline a grasp planning system designed to augment the cortical control of a prosthetic arm and hand. A key aspect of this system it the ability to combine online user input and autonomous planning to enable the execution of stable grasping tasks. While user input can ultimately be of any modality, the system is being designed to adapt to partial or noisy information obtained from grasp-related activity in the primate motor cortex. First, principal component analysis is applied to the observed kinematics of physiologic grasping to reduce the dimensionality of hand posture space and simplify the planning task for on-line use. The planner then accepts control input in this reduced-dimensionality space, and uses it as a seed for a hand posture optimization algorithm based on simulated annealing. We present two applications of this algorithm, using data collected from both primate and human subjects during grasping, to demonstrate its ability to synthesize stable grasps using partial control input in real or near-real time.},
+annote = {PCA applied to observed kinematics of physiologic grasping to reduce dimensionalty of hand posture space.
+        
+High number of degrees of freedom of control are needed to successfully complete a grasping or manipulating task.
+        
+Taylor et al. enable a primate to directly control linear velocity through 3 DOFs in real time.  This control was achieved by measuring the activity of individual cortical neurons that correspond to the preferred directions.  
+        
+Velliste also demonstrated continuous cortical control of a robotic pincer.
+        
+While this approach is effective for transport and pinching.  The nature of dexterous grasping is different.
+4-DOF manipulator whose main function is grasping to bring the hand to a certain point in 3-D space.  
+        
+In this setting even a single degree of freedom can be helpful.  Grasp quality function becomes Q = f(a,w) 
+        
+        
+        
+In our approach we use eigengrasps.  Santello et al. have showed that two such basis vectors can account for more than 80\%of the human hand grasp posture over 57 objects.
+        
+Efficient algorithm which operates in a 2 dimensional subspace to synthesize grasps.  Operaters on to produce pregrasms which NEARLY conform to objects.
+        
+        
+        
+Functionality and interactivity - find a stable grasp fast
+Adjustable cortical/ computer control - Operator control vs synthetic behavior should be directly adjustable, allowing both learning and adaptation.
+        
+Biomimetic synthesis: in the absense of complete control, grasps will be created such that automatically controlled parameters will resembler observed physiologic behavior as possible.
+        
+        
+        
+        
+As a prosthetic device, any actuated device is good enough.  In contrast, the human hand is 24-DOF manipulator which is designed to conform to the surface of an object.  
+The activity of some motor neurons is correlated with finger movements, or joint angles, however 24 degrees of freedom is unlikely to be recovered.  Furthermore, the robotic hand generally has different kinematics.  Translating actuation of robot with a particular non-physiologic kinematic configuration could be difficult
+        
+        
+Grasp planning system should incorporate some criteria in order to be appropriate for neural prosthetic control.  
+        
+        
+        
+      },
+author = {Ciocarlie, Matei T. and Clanton, Samuel T. and Spalding, M. Chance and Allen, Peter K.},
+journal = {Proc. IEEE/RSJ Int. Conf. on Intelligent Robots and Systems},
+pages = {2271--2276},
+publisher = {IEEE},
+title = {{Biomimetic grasp planning for cortical control of a robotic hand}},
+year = {2008}
+}
+
+@article{CiocarlieIJRR,
+author = {Ciocarlie, Matei T. and Allen, Peter K.}, 
+title = {Hand Posture Subspaces for Dexterous Robotic Grasping}, 
+volume = {28}, 
+number = {7}, 
+pages = {851-867}, 
+year = {2009}, 
+abstract ={                 
+               In this paper we focus on the concept of low-dimensional posture subspaces for                     artificial hands. We begin by discussing the applicability of a hand                     configuration subspace to the problem of automated grasp synthesis; our results                     show that low-dimensional optimization can be instrumental in deriving effective                     pre-grasp shapes for a number of complex robotic hands. We then show that the                     computational advantages of using a reduced dimensionality framework enable it                     to serve as an interface between the human and automated components of an                     interactive grasping system. We present an on-line grasp planner that allows a                     human operator to perform dexterous grasping tasks using an artificial hand. In                     order to achieve the computational rates required for effective user                     interaction, grasp planning is performed in a hand posture subspace of highly                     reduced dimensionality. The system also uses real-time input provided by the                     operator, further simplifying the search for stable grasps to the point where                     solutions can be found at interactive rates. We demonstrate our approach on a                     number of different hand models and target objects, in both real and virtual                     environments.             
+            }, 
+journal = {The International Journal of Robotics Research} 
+}
+
+
+@article{Miller2004,
+abstract = {Grasping in an industrial setting is generally accomplished with low complexity grippers which offer a high degree of reliability within a structured environment. But, as robots are moved out of the factory into more unstructured settings, they will need more flexible devices to grasp or manipulate objects. To fill this need, articulated hands are being designed with more and more degrees of freedom, but this additional flexibility comes at a price of additional complexity in the design process and in choosing a grasp from the large number of possibilities. Mechanical grasping theory, which has been thoroughly studied in the last 20 years, provides objective methods for evaluating grasps, but the field has lacked a tool that can apply this analysis to arbitrary grasps of objects using different robotic hands. This thesis presents a grasping simulator that can aid both robotic hand designers and those planning grasping tasks. It provides a user with an interactive environment where he or she can manipulate the degrees of freedom of any given hand model to form grasps. As contact between the links of the hand and an object occur, the simulator analyzes the new grasp on the fly and provides the user with},
+author = {Miller, Andrew T. and Allen, Peter K.},
+pages = {110-122},
+journal = {IEEE Robotics and Automation Magazine},
+title = {{Graspit!: A versatile simulator for robotic grasping}},
+volume = {11},
+year = {2004}
+}
+
+
+@article{Berenson2011a,
+author = {Berenson, D. and Srinivasa, S. S. and Kuffner, J.},
+journal = {The International Journal of Robotics Research},
+month = mar,
+title = {{Task Space Regions: A framework for pose-constrained manipulation planning}},
+year = {2011}
+}
+
+@article{SantelloSynergies,
+author = {Santello, Marco and Flanders, Martha and Soechting, John F.}, 
+title = {Patterns of Hand Motion during Grasping and the Influence of Sensory Guidance}, 
+volume = {22}, 
+number = {4}, 
+pages = {1426-1435}, 
+year = {2002}, 
+abstract ={This study was aimed at describing temporal synergies of hand movement and determining the influence of sensory cues on the control of these synergies. Subjects were asked to reach to and grasp various objects under three experimental conditions: (1) memory-guided movements, in which the object was not in view during the movement; (2) virtual object, in which a virtual image of the object was in view but the object was not physically present; and (3) real object, in which the object was in view and physically present. Motion of the arm and of 15 degrees of freedom of the hand was recorded. A principal components analysis was developed to provide a concise description of the spatiotemporal patterns underlying the motion. Vision of the object during the reaching movement had no influence on the kinematics, and the effect of the physical presence of the object became manifest primarily after the fingers had contacted the object. Two principal components accounted for >75% of the variance. For both components, there was a strong positive correlation in the rotations of metacarpophalangeal and proximal interphalangeal joints of the fingers. The first principal component exhibited a pattern of finger extension reversing to flexion, whereas the second principal component became important only in the second half of the reaching movement.}, 
+journal = {The Journal of Neuroscience} 
+}
+
+
+@inproceedings{jenkinssubspace,
+ title = {2D subspaces for user-driven robot grasping},
+ author = {Aggeliki Tsoli and Odest Chadwicke Jenkins},
+ booktitle = {RSS Workshop on Robot Manipulation: Sensing and Adapting to the Real World},
+ address = {Atlanta, GA},
+ month = {June},
+ year = {2007}
+}
+
+@INPROCEEDINGS{raviperturb, 
+author={Balasubramanian, R. and Ling Xu and Brook, P.D. and Smith, J.R. and Matsuoka, Y.}, 
+booktitle={Int. Conf. on Robotics and Automation}, 
+title={Human-guided grasp measures improve grasp robustness on physical robot}, 
+year={2010}, 
+month={may}, 
+keywords={automated grasp synthesis algorithm;human-guided grasp;robotic arm;robotic grasp;robotic hand;robot kinematics; }
+}
+
+
+@inproceedings{Vogel2010,
+annote = {The only novel part of this experiment A - is the use of an implanted device in humans and and B - the training paradigm which uses what appears to be a simulator with real time dynamics. I don't see a citation for that simulator or a name, which is kind of upsetting. 
+
+I'm going to guess that it uses analytical equations for the DLR arm and does not do actual collision detection for the grasping task or with the environment.  That would make real time relatively easy. This kind of "dynamic" simulation is not useful to us because of the nature of our robot.},
+author = {Vogel, J\"{o}rn and Haddadin, Sami and Simeral, John D and Stavisky, Sergej D and Bacher, Dirk and Hochberg, Leigh R and Donoghue, John P and {Van Der Smagt}, Patrick},
+booktitle = {International Symposium on Experimental Robotics},
+keywords = {BCI,Cartesian velocity,Grasping,implanted bci,simulator training},
+mendeley-tags = {BCI,Cartesian velocity,Grasping,implanted bci,simulator training},
+title = {{Continuous Control of the DLR Light-weight Robot III by a human with tetraplegia using the BrainGate2 Neural Interface System}},
+year = {2010}
+}
+
+@INPROCEEDINGS{joshisensor,
+author={Joshi, Sanjay S. and Wexler, Anthony S. and Perez-Maldonado, Claudia and Vernon, S.},
+booktitle={Int.l IEEE/EMBS Conf. on Neural Engineering (NER)},
+title={Brain-muscle-computer interface using a single surface electromyographic signal: Initial results},
+year={2011},
+month={May},
+pages={342 -347},
+keywords={actual power wheelchairs;brain-muscle-computer interface;complex control;cursor manipulation;human neuromuscular system;inite-state machine;multidimensional control;paralyzed persons;sEMG power spectrum;simulated power wheelchairs;single surface electromyographic signal;visual feedback based operant conditioning;biocontrol;brain-computer interfaces;electromyography;handicapped aids;medical disorders;neuromuscular stimulation;patient rehabilitation;prosthetics;wheelchairs;}
+}
+
+@book{Vahrenkamp2010,
+abstract = {In this work, we present an integrated planner for collision-free single and dual arm grasping motions. The proposed Grasp-RRT planner combines the three main tasks needed for grasping an object: finding a feasible grasp, solving the inverse kinematics and searching a collision-free trajectory that brings the hand to the grasping pose. Therefore, RRT-based algorithms are used to build a tree of reachable and collision-free configurations. During RRT-generation, potential grasping positions are generated and approach movements toward them are computed. The quality of reachable grasping poses is scored with an online grasp quality measurement module which is based on the computation of applied forces in order to diminish the net torque.We also present an extension to a dual arm planner which generates bimanual grasps together with corresponding dual arm grasping motions. The algorithms are evaluated with different setups in simulation and on the humanoid robot ARMAR-III.},
+author = {Vahrenkamp, Nikolaus and Do, Martin and Asfour, Tamim and Dillmann, Rüdiger},
+booktitle = {2010 IEEE International Conference on Robotics and Automation},
+month = may,
+pages = {2883--2888},
+publisher = {IEEE},
+title = {{Integrated Grasp and motion planning}},
+year = {2010}
+}
+
+@incollection {EfficientModelRansac,
+   author = {Papazov, Chavdar and Burschka, Darius},
+   title = {An Efficient RANSAC for 3D Object Recognition in Noisy and Occluded Scenes},
+   booktitle = {Computer Vision – ACCV 2010},
+   keyword = {Computer Science},
+   pages = {135-148},
+   volume = {6492},
+   year = {2011}
+}
+
+@inproceedings{ddg,
+ author = {Goldfeder, Corey and Ciocarlie, Matei and Peretzman, Jaime and Dang, Hao and Allen, Peter K.},
+ title = {Data-driven grasping with partial sensor data},
+ booktitle = {IROS'09: Proceedings of the 2009 IEEE/RSJ international conference on Intelligent robots and systems},
+ year = {2009},
+ isbn = {978-1-4244-3803-7},
+ pages = {1278--1283},
+ location = {St. Louis, MO, USA},
+ publisher = {IEEE Press},
+ address = {Piscataway, NJ, USA},
+ }
+
+
+@inproceedings{Gergondet2012,
+author={Gergondet,Pierre and Kheddar, Abderrahmane and Hintermuller, Christoph and Guger, Christoph  and Slater, Mel},
+ booktitle = {Proc. Int. Sym. on Experimental Robotics},
+ year = {2012},
+ location = {Quebec City, CA},
+ publisher = {Springer},
+title = {Multitask Humanoid Control with a Brain-Computer Interface: user experiment with HRP-2},
+}
+
+@inproceedings{Weisz2012c,
+ author = {Weisz, Jonathan and Shababo,Benjamin and Allen, Peter K.},
+ title = {Grasping With Your Face},
+ booktitle = {Proc. Int. Sym. on Experimental Robotics},
+ year = {2012},
+ location = {Quebec City, CA},
+ publisher = {Springer},
+}
+
+
+@INPROCEEDINGS{Weisz2012, 
+author={Weisz, Jonathan and Allen, P.K.}, 
+booktitle={Robotics and Automation (ICRA), 2012 IEEE International Conference on}, 
+title={Pose error robust grasping from contact wrench space metrics}, 
+year={2012}, 
+month={May}, 
+pages={557-562}, 
+keywords={grippers;robust control;Barrett hand;Columbia grasp database;contact wrench space metrics;data driven approach;grasp wrench space epsilon quality metric;pose error robust grasping;robust force closure;robustness analysis;Databases;Force;Grasping;Joints;Measurement;Robustness;Uncertainty}, 
+doi={10.1109/ICRA.2012.6224697}, 
+ISSN={1050-4729},}
+
+@inproceedings{Weisz2013,
+author={Weisz, Jonathan and Elvezio, Carmine and Allen, Peter K.},
+title={A user interface for assistive grasping},
+booktitle={Proc. Int. Conf. on Intelligent Robots and Systems},
+year = {2013},
+month = {Nov.},
+location = {Tokyo, JP},
+publisher = {IEEE Press},
+}
+
+@inproceedings{Weisz2014,
+  author    = {Jonathan Weisz and
+               Alexander G. Barszap and
+               Sanjay S. Joshi and
+               Peter K. Allen},
+  title     = {Single muscle site sEMG interface for assistive grasping},
+  booktitle = {2014 {IEEE/RSJ} International Conference on Intelligent Robots and
+               Systems, Chicago, IL, USA, September 14-18, 2014},
+  pages     = {2172--2178},
+  year      = {2014},
+  crossref  = {DBLP:conf/iros/2014},
+  url       = {http://dx.doi.org/10.1109/IROS.2014.6942855},
+  doi       = {10.1109/IROS.2014.6942855},
+  timestamp = {Thu, 13 Nov 2014 14:41:42 +0100},
+  biburl    = {http://dblp.uni-trier.de/rec/bib/conf/iros/WeiszBJA14},
+  bibsource = {dblp computer science bibliography, http://dblp.org},
+}
+
+@article{Vogel2012,
+author = {Hochberg, Leigh R.  and Bacher, Daniel and Jarosiewicz, Beata and Masse, Nicolas Y. and Simeral, John D. and Vogel, Joern and Haddadin, Sami and Liu, Jie and  Cash, Sydney S. and  van der Smagt, Patrick and Donoghue, John P.},
+title  = {Reach and grasp by people with tetraplegia using a neurally controlled robotic arm},
+journal = {Nature},
+year = {2012},
+}
+
+@inproceedings{Ciocarlie2012,
+author = {Leeper, Adam and Hsiao, Kaijen and Ciocarlie, Matei and Takayama, Leila and Gossow, David},
+title = {Strategies for Human-in-the-Loop Robotic Grasping},
+booktitle={Human Robot Interaction},
+year = {2012},
+location = {Boston, MA},
+}
+
+@article{Graser2011,
+author = {Grigorescu, Sorin M. and L\"{u}th, Thorsten and Fragkopoulos, Christos and Cyriacks, Marco and Gr\"{a}ser, Axel},
+title = {A BCI-controlled robotic assistant for quadriplegic people in domestic and professional life},
+journal = {Robotica},
+year={2011},
+month={May},
+volume={30},
+issue={03},
+}
+
+@article{JoshiMobilePrototype,
+author = {Vernon, Scott and Joshi, Sanjay S.},
+title = {Brain-muscle-computer Interface: Mobile Phone Prototype and Testing},
+Journal = {IEEE Transactions on Information Technology in Biomedicine},
+Volume = {15},
+Issue = {4},
+Month = {July},
+Year = {2011},
+pages = {531--538},
+}
+
+@article{JoshiTwoDimCursor,
+author = {Perez-Maldonado, Claudia and Wexler, Anthony S. and Joshi, Sanjay S.},
+title = {Two Dimensional Cursor-to-Target Control from Single Muscle Site sEMG Signals},
+Journal = {Trans. of Neural Systems and Rehabilitation Engineering},
+Volume = {18},
+ISsue = {2},
+Month = {April},
+Year = {2010},
+publisher = {IEEE}
+}
+
+@article{Mello07,
+  added-at = {2007-11-05T00:00:00.000+0100},
+  author = {Mello, Roger G. T. and Oliveira, Liliam F. and Nadal, Jurandir},
+  date = {2007-11-05},
+  year = {2007},
+  month = {Nov.},
+  description = {dblp},
+  interhash = {9a0447463d0b2ce10f9178c828e2252a},
+  intrahash = {e4316ed32f99512be6b4c6b3662549a5},
+  journal = {Computer Methods and Programs in Biomedicine},
+  keywords = {dblp},
+  number = 1,
+  pages = {28-35},
+  timestamp = {2007-11-05T00:00:00.000+0100},
+  title = {Digital Butterworth filter for subtracting noise from low magnitude surface}
+  }
+
+
+@inproceedings{JoshiEPLPilot,
+author={Skavhaug, Ida-Maria and Bobell, R. and Vernon, Benjamin and Joshi, Sanjay S.},
+title = {Pilot Study for a Brain-Muscle-Computer Interface Using the Extensor Pollicis Longus with Preselected Frequency Bands},
+booktitle={Conf. Proc. IEEE Eng. Med. Biol. Soc.},
+location = {San Diego, CA},
+month = {August},
+year = {2012},
+pages= {1727--1731},
+}
+
+@INPROCEEDINGS{GoldfederCGDB, 
+author={Goldfeder, Corey and Ciocarlie, Matei and Hao Dang and Allen, Peter K.}, 
+booktitle={Int. Conf. on Robotics and Automation}, 
+title={The Columbia grasp database}, 
+year={2009}, 
+pages={1710-1716}, 
+keywords={database management systems;dexterous manipulators;intelligent robots;learning (artificial intelligence);planning (artificial intelligence);3D model;Columbia grasp database;dexterous robotic grasping;geometric similarity;grasp planning algorithm;machine learning;robot hand;Computational geometry;Computational modeling;Data gloves;Humans;Large-scale systems;Robotics and automation;Robots;Solid modeling;Spatial databases;Training data}, 
+doi={10.1109/ROBOT.2009.5152709}, 
+ISSN={1050-4729},
+publisher={IEEE}
+}
+
+@article {RFH,
+	title = {Robots for Humanity: A Case Study in Assistive Mobile Manipulation},
+	journal = {IEEE Robotics \& Automation Magazine},
+	volume = {20},
+	year = {2013},
+	keywords = {HRI},
+	author = {Tiffany Chen and Matei Ciocarlie and Steve Cousins and Phillip M. Grice and Kelsey Hawkins and Kaijen Hsiao and Charlie Kemp and Chih-Hung King and Daniel Lazewatsky and Adam Eric Leeper and Hai Nguyen and Paepcke, Andreas and Caroline Pantofaru and William Smart and Leila Takayama}
+}
+
+@article{ElE,
+ author = {Jain, Advait and Kemp, Charles C.},
+ title = {EL-E: an assistive mobile manipulator that autonomously fetches objects from flat surfaces},
+ journal = {Auton. Robots},
+ issue_date = {January   2010},
+ volume = {28},
+ number = {1},
+ month = jan,
+ year = {2010},
+ issn = {0929-5593},
+ pages = {45--64},
+ numpages = {20},
+ doi = {10.1007/s10514-009-9148-5},
+ acmid = {1670765},
+ publisher = {Kluwer Academic Publishers},
+ address = {Hingham, MA, USA},
+ keywords = {Assistive robotics, Mobile manipulation},
+} 
+
+@incollection{Cutkoskytaxonomy,
+ author = {Cutkosky, Mark R. and Howe, Robert D.},
+ chapter = {Human Grasp Choice and Robotic Grasp Analysis},
+ title = {Dextrous Robot Hands},
+ editor = {Venkataraman, S. T. and Iberall, T.},
+ year = {1990},
+ isbn = {0-387-97190-4},
+ pages = {5--31},
+ numpages = {27},
+ url = {http://dl.acm.org/citation.cfm?id=88109.88110},
+ acmid = {88110},
+ publisher = {Springer-Verlag New York, Inc.},
+ address = {New York, NY, USA},
+} 
+
+@incollection{opengrasp,
+year={2010},
+isbn={978-3-642-17318-9},
+booktitle={Simulation, Modeling, and Programming for Autonomous Robots},
+volume={6472},
+series={Lecture Notes in Computer Science},
+editor={Ando, Noriaki and Balakirsky, Stephen and Hemker, Thomas and Reggiani, Monica and von Stryk, Oskar},
+doi={10.1007/978-3-642-17319-6_13},
+title={OpenGRASP: A Toolkit for Robot Grasping Simulation},
+url={http://dx.doi.org/10.1007/978-3-642-17319-6_13},
+publisher={Springer Berlin Heidelberg},
+keywords={software toolkit; grasping simulation; robot modeling},
+author={León, Beatriz and Ulbrich, Stefan and Diankov, Rosen and Puche, Gustavo and Przybylski, Markus and Morales, Antonio and Asfour, Tamim and Moisio, Sami and Bohg, Jeannette and Kuffner, James and Dillmann, Rüdiger},
+pages={109-120},
+language={English}
+}
+
+@misc{moveit,
+author = {Sucan, Ioan A. and Chitta, Sachin "MoveIt!"}, 
+url = {http://moveit.ros.org},
+year = {2013},
+note = {Available Online from http://moveit.ros.org}
+
+}
+
+@article{vanducnguyen1988,
+ author = {{Nguyen, Van-Duc}},
+ title = {Constructing Force-closure Grasps},
+ journal = {Int. J. Rob. Res.},
+ issue_date = {June, 1988},
+ volume = {7},
+ number = {3},
+ month = jun,
+ year = {1988},
+ issn = {0278-3649},
+ pages = {3--16},
+ numpages = {14},
+ url = {http://dx.doi.org/10.1177/027836498800700301},
+ doi = {10.1177/027836498800700301},
+ acmid = {46385},
+ publisher = {Sage Publications, Inc.},
+ address = {Thousand Oaks, CA, USA},
+} 
+
+
+@book{graysanatomy,
+title = {Anatomy of the human body },
+url = {http://www.biodiversitylibrary.org/item/60234},
+note = {http://www.biodiversitylibrary.org/bibliography/20311 --- First ed. published in London in 1858 under title: Anatomy, descriptive and surgical},
+publisher = {Philadelphia,Lea and Febiger},
+author = {Gray, Henry, and Lewis, Warren H},
+year = {1858},
+pages = {1396},
+}
+
+@article{ompl,
+    Author = {Ioan A. {\c{S}}ucan and Mark Moll and Lydia E. Kavraki},
+    Doi = {10.1109/MRA.2012.2205651},
+    Journal = {{IEEE} Robotics \& Automation Magazine},
+    Month = {December},
+    Number = {4},
+    Pages = {72--82},
+    Title = {The {O}pen {M}otion {P}lanning {L}ibrary},
+    Note = {\url{http://ompl.kavrakilab.org}},
+    Volume = {19},
+    Year = {2012}
+}
+
+
+@Article{Farwell1988,
+  Title                    = {Talking off the top of your head: toward a mental prosthesis utilizing event-related brain potentials},
+  Author                   = {Farwell, L.A. and Donchin, E.},
+  Journal                  = {Electroencephalography and Clinical Neurophysiology},
+  Year                     = {1988},
+
+  Month                    = {Dec},
+  Number                   = {6},
+  Pages                    = {510–523},
+  Volume                   = {70},
+  Doi                      = {10.1016/0013-4694(88)90149-6},
+  ISSN                     = {0013-4694},
+  Owner                    = {rbtyi_000},
+  Publisher                = {Elsevier BV},
+  Timestamp                = {2015.03.05},
+  Url                      = {http://dx.doi.org/10.1016/0013-4694(88)90149-6}
+}
+
+@Article{Gerson2006,
+  Title                    = {Cortically Coupled Computer Vision for Rapid Image Search},
+  Author                   = {Gerson, A.D. and Parra, L.C. and Sajda, P.},
+  Journal                  = {IEEE Trans. Neural Syst. Rehabil. Eng.},
+  Year                     = {2006},
+
+  Month                    = {Jun},
+  Number                   = {2},
+  Pages                    = {174–179},
+  Volume                   = {14},
+
+  Doi                      = {10.1109/tnsre.2006.875550},
+  ISSN                     = {1534-4320},
+  Owner                    = {rbtyi_000},
+  Publisher                = {Institute of Electrical \& Electronics Engineers (IEEE)},
+  Timestamp                = {2015.03.04},
+  Url                      = {http://dx.doi.org/10.1109/TNSRE.2006.875550}
+}
+
+@InCollection{Papazov2011,
+  Title                    = {An efficient RANSAC for 3D object recognition in noisy and occluded scenes},
+  Author                   = {Papazov, Chavdar and Burschka, Darius},
+  Booktitle                = {Computer Vision--ACCV 2010},
+  Publisher                = {Springer},
+  Year                     = {2011},
+  Pages                    = {135--148},
+  Owner                    = {rbtyi_000},
+  Timestamp                = {2015.03.04}
+}
+
+@Article{Pohlmeyer2011,
+  Title                    = {Closing the loop in cortically-coupled computer vision: a brain–computer interface for searching image databases},
+  Author                   = {Pohlmeyer, Eric A and Wang, Jun and Jangraw, David C and Lou, Bin and Chang, Shih-Fu and Sajda, Paul},
+  Journal                  = {J. Neural Eng.},
+  Year                     = {2011},
+
+  Month                    = {May},
+  Number                   = {3},
+  Pages                    = {036025},
+  Volume                   = {8},
+
+  Doi                      = {10.1088/1741-2560/8/3/036025},
+  ISSN                     = {1741-2552},
+  Owner                    = {rbtyi_000},
+  Publisher                = {IOP Publishing},
+  Timestamp                = {2015.03.04},
+  Url                      = {http://dx.doi.org/10.1088/1741-2560/8/3/036025}
+}
+
+@Article{Potter1969,
+  Title                    = {Recognition memory for a rapid sequence of pictures.},
+  Author                   = {Potter, Mary C. and Levy, Ellen I.},
+  Journal                  = {Journal of Experimental Psychology},
+  Year                     = {1969},
+  Number                   = {1},
+  Pages                    = {10–15},
+  Volume                   = {81},
+
+  __markedentry            = {[rbtyi_000:6]},
+  Doi                      = {10.1037/h0027470},
+  ISSN                     = {0022-1015},
+  Owner                    = {rbtyi_000},
+  Publisher                = {American Psychological Association (APA)},
+  Timestamp                = {2015.03.05},
+  Url                      = {http://dx.doi.org/10.1037/h0027470}
+}
+
+@Article{Sajda2010,
+  Title                    = {In a Blink of an Eye and a Switch of a Transistor: Cortically Coupled Computer Vision},
+  Author                   = {Sajda, P. and Pohlmeyer, E. and Jun Wang and Parra, L.C. and Christoforou, C. and Dmochowski, J. and Hanna, B. and Bahlmann, C. and Singh, M.K. and Shih-Fu Chang},
+  Journal                  = {Proceedings of the IEEE},
+  Year                     = {2010},
+
+  Month                    = {Mar},
+  Number                   = {3},
+  Pages                    = {462–478},
+  Volume                   = {98},
+
+  __markedentry            = {[rbtyi_000:]},
+  Doi                      = {10.1109/jproc.2009.2038406},
+  ISSN                     = {1558-2256},
+  Owner                    = {rbtyi_000},
+  Publisher                = {Institute of Electrical \& Electronics Engineers (IEEE)},
+  Timestamp                = {2015.03.05},
+  Url                      = {http://dx.doi.org/10.1109/JPROC.2009.2038406}
+}
+
+@Article{Weisz2013a,
+  Title                    = {A user interface for assistive grasping},
+  Author                   = {Weisz, Jonathan and Elvezio, Carmine and Allen, Peter K.},
+  Journal                  = {2013 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  Year                     = {2013},
+
+  Month                    = {Nov},
+
+  Doi                      = {10.1109/iros.2013.6696813},
+  ISBN                     = {http://id.crossref.org/isbn/978-1-4673-6357-0},
+  Owner                    = {rbtyi_000},
+  Publisher                = {Institute of Electrical \& Electronics Engineers (IEEE)},
+  Timestamp                = {2015.03.04},
+  Url                      = {http://dx.doi.org/10.1109/IROS.2013.6696813}
+}
+
+@Article{Weisz2013,
+  Title                    = {Grasping with Your Face},
+  Author                   = {Weisz, Jonathan and Shababo, Benjamin and Dong, Lixing and Allen, Peter K.},
+  Journal                  = {Springer Tracts in Advanced Robotics},
+  Year                     = {2013},
+  Pages                    = {435-448},
+
+  Doi                      = {10.1007/978-3-319-00065-7\_30},
+  ISBN                     = {http://id.crossref.org/isbn/978-3-319-00065-7},
+  ISSN                     = {1610-742X},
+  Owner                    = {rbtyi_000},
+  Publisher                = {Springer Science + Business Media},
+  Timestamp                = {2015.03.04},
+  Url                      = {http://dx.doi.org/10.1007/978-3-319-00065-7\_30}
+}
+
+@Article{Weisz2013s,
+  Title                    = {Grasping with Your Face},
+  Author                   = {Weisz, Jonathan and Shababo, Benjamin and Dong, Lixing and Allen, Peter K.},
+  Journal                  = {Springer Tracts in Advanced Robotics},
+  Year                     = {2013},
+}
+
+
+@Article{Weisz2014, 
+Title = {Single Muscle Site sEMG Interface for Assistive Grasping},
+Author = {Weisz, Jonathan and Barszap, Alexander G. and  Joshi, Sanjay S. and Allen, Peter K.},
+Journal = {IROS},
+Month = {September},
+Year = {2014}
+}
+
+
+
+  	
+@Article{Jangraw2014,
+  author={David C Jangraw and Jun Wang and Brent J Lance and Shih-Fu Chang and Paul Sajda},
+  title={Neurally and ocularly informed graph-based models for searching 3D environments},
+  journal={Journal of Neural Engineering},
+  volume={11},
+  number={4},
+  pages={046003},
+  url={http://stacks.iop.org/1741-2552/11/i=4/a=046003},
+  year={2014},
+  abstract={Objective. As we move through an environment, we are constantly making assessments, judgments and decisions about the things we encounter. Some are acted upon immediately, but many more become mental notes or fleeting impressions—our implicit ‘labeling’ of the world. In this paper, we use physiological correlates of this labeling to construct a hybrid brain–computer interface (hBCI) system for efficient navigation of a 3D environment. Approach. First, we record electroencephalographic (EEG), saccadic and pupillary data from subjects as they move through a small part of a 3D virtual city under free-viewing conditions. Using machine learning, we integrate the neural and ocular signals evoked by the objects they encounter to infer which ones are of subjective interest to them. These inferred labels are propagated through a large computer vision graph of objects in the city, using semi-supervised learning to identify other, unseen objects that are visually similar to the labeled ones. Finally, the system plots an efficient route to help the subjects visit the ‘similar’ objects it identifies. Main results. We show that by exploiting the subjects’ implicit labeling to find objects of interest instead of exploring naively, the median search precision is increased from 25% to 97%, and the median subject need only travel 40% of the distance to see 84% of the objects of interest. We also find that the neural and ocular signals contribute in a complementary fashion to the classifiers’ inference of subjects’ implicit labeling. Significance. In summary, we show that neural and ocular signals reflecting subjective assessment of objects in a 3D environment can be used to inform a graph-based learning model of that environment, resulting in an hBCI system that improves navigation and information delivery specific to the user’s interests.}
+}
+
+
+@article{Jangraw2011,
+  author={Eric A Pohlmeyer and Jun Wang and David C Jangraw and Bin Lou and Shih-Fu Chang and Paul Sajda},
+  title={Closing the loop in cortically-coupled computer vision: a brain–computer interface for searching image databases},
+  journal={Journal of Neural Engineering},
+  volume={8},
+  number={3},
+  pages={036025},
+  url={http://stacks.iop.org/1741-2552/8/i=3/a=036025},
+  year={2011},
+  abstract={We describe a closed-loop brain–computer interface that re-ranks an image database by iterating between user generated 'interest' scores and computer vision generated visual similarity measures. The interest scores are based on decoding the electroencephalographic (EEG) correlates of target detection, attentional shifts and self-monitoring processes, which result from the user paying attention to target images interspersed in rapid serial visual presentation (RSVP) sequences. The highest scored images are passed to a semi-supervised computer vision system that reorganizes the image database accordingly, using a graph-based representation that captures visual similarity between images. The system can either query the user for more information, by adaptively resampling the database to create additional RSVP sequences, or it can converge to a 'done' state. The done state includes a final ranking of the image database and also a 'guess' of the user's chosen category of interest. We find that the closed-loop system's re-rankings can substantially expedite database searches for target image categories chosen by the subjects. Furthermore, better reorganizations are achieved than by relying on EEG interest rankings alone, or if the system were simply run in an open loop format without adaptive resampling.}
+}
+	
+@article{Jangraw2011s,
+  author={Eric A Pohlmeyer and Jun Wang and David C Jangraw and Bin Lou and Shih-Fu Chang and Paul Sajda},
+  title={Closing the loop in cortically-coupled computer vision: a brain–computer interface for searching image databases},
+  journal={J. Neural Engineering},
+  year={2011},
+  abstract={We describe a closed-loop brain–computer interface that re-ranks an image database by iterating between user generated 'interest' scores and computer vision generated visual similarity measures. The interest scores are based on decoding the electroencephalographic (EEG) correlates of target detection, attentional shifts and self-monitoring processes, which result from the user paying attention to target images interspersed in rapid serial visual presentation (RSVP) sequences. The highest scored images are passed to a semi-supervised computer vision system that reorganizes the image database accordingly, using a graph-based representation that captures visual similarity between images. The system can either query the user for more information, by adaptively resampling the database to create additional RSVP sequences, or it can converge to a 'done' state. The done state includes a final ranking of the image database and also a 'guess' of the user's chosen category of interest. We find that the closed-loop system's re-rankings can substantially expedite database searches for target image categories chosen by the subjects. Furthermore, better reorganizations are achieved than by relying on EEG interest rankings alone, or if the system were simply run in an open loop format without adaptive resampling.}
+}
+	
+
+@ARTICLE{kragic-2014, 
+author={Bohg, Jeanette and Morales, Antonio and Asfour, Tamin and Kragic, Danica}, 
+journal={Robotics, IEEE Transactions on}, 
+title={Data-Driven Grasp Synthesis, A Survey}, 
+year={2014}, 
+month={April}, 
+volume={30}, 
+number={2}, 
+pages={289-309}, 
+keywords={feature extraction;grippers;image matching;object recognition;pose estimation;sampling methods;candidate grasp ranking;candidate grasp sampling;common object representations;data-driven grasp synthesis technique;feature extraction;object recognition;perceptual processes;pose estimation;robot grasping;similarity matching;Databases;Feature extraction;Grasping;Measurement;Robot sensing systems;Grasp planning;grasp synthesis;object grasping and manipulation;object recognition and classification;visual perception;visual representations}, 
+doi={10.1109/TRO.2013.2289018}, 
+ISSN={1552-3098},}
+
+@ARTICLE{pollard-2013, 
+author={Junggon Kim and Iwamoto, Kunihiro and Kuffner, James and Ota, Yasuhiro and Pollard, Nancy}, 
+journal={Robotics, IEEE Transactions on}, 
+title={Physically Based Grasp Quality Evaluation Under Pose Uncertainty}, 
+year={2013}, 
+month={Dec}, 
+volume={29}, 
+number={6}, 
+pages={1424-1439}, 
+keywords={manipulator kinematics;dynamic simulation;grasping process;object dynamics;physically based grasp quality evaluation;pose uncertainty;Computational modeling;Grasping;Robot kinematics;Robustness;Uncertainty;Grasp quality evaluation;object dynamics;pose uncertainty}, 
+doi={10.1109/TRO.2013.2273846}, 
+ISSN={1552-3098},
+}
+
+@ARTICLE{PRM, 
+author={Kavraki, L.E. and Svestka, P. and Latombe, J.-C. and Overmars, M.H.}, 
+journal={Robotics and Automation, IEEE Transactions on}, 
+title={Probabilistic roadmaps for path planning in high-dimensional configuration spaces}, 
+year={1996}, 
+volume={12}, 
+number={4}, 
+pages={566-580}, 
+keywords={graph theory;learning (artificial intelligence);mobile robots;path planning;probability;collision-free configurations;goal configurations;graph;high-dimensional configuration spaces;holonomic robot;learning phase;local planner;motion planning;multi-DOF planar articulated robots;path planning;probabilistic roadmaps;query phase;robots;start configurations;static workspaces;Computer science;Joining processes;Laboratories;Layout;Motion planning;Orbital robotics;Path planning;Robots;Workstations}, 
+doi={10.1109/70.508439}, 
+ISSN={1042-296X}, 
+month={Aug},}
+
+@article{Mulling2015,
+  author    = {Katharina M{\"{u}}lling and
+               Arun Venkatraman and
+               Jean{-}Sebastien Valois and
+               John Downey and
+               Jeffrey Weiss and
+               Shervin Javdani and
+               Martial Hebert and
+               Andrew B. Schwartz and
+               Jennifer L. Collinger and
+               J. Andrew Bagnell},
+  title     = {Autonomy Infused Teleoperation with Application to {BCI} Manipulation},
+  journal   = {CoRR},
+  volume    = {abs/1503.05451},
+  year      = {2015},
+  url       = {http://arxiv.org/abs/1503.05451},
+  timestamp = {Thu, 09 Apr 2015 11:33:20 +0200},
+  biburl    = {http://dblp.uni-trier.de/rec/bib/journals/corr/MullingVVDWJHSC15},
+  bibsource = {dblp computer science bibliography, http://dblp.org}
+}
