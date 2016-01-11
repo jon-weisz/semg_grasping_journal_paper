@@ -1,0 +1,67 @@
+\documentclass[lettersize, apacite, twoside]{apa_HRI}
+\usepackage{amsthm,amssymb,natbib,url,amsmath}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{times}
+\captionsetup{compatibility=false}
+
+
+\abstract{
+Assisting impaired individuals with robotic devices is an emerging and potentially transformative technology.  This paper describes the design of an assistive robotic grasping system that allows impaired individuals to interact with the system in a Human-in-the-Loop (HitL) manner, including the use of a novel cranio-facial electromyography input device. The system uses an augmented reality interface that allows a user to plan a grasp online that matches their task oriented intent. The system uses grasp quality measurements that generate more robust grasps by considering the local geometry of the object and the effect of uncertainty during grasp acquisition. This interface is validated by testing with real users, both healthy and impaired. This work forms the foundation for a flexible, fully featured HitL system that allows users to grasp known and unknown objects in cluttered spaces using novel, practical Human Robot Interaction paradigms that have the potential to bring HiTL assistive devices out of the research environment and into the lives of those that need them. 
+}
+
+\rightheader{Assistive Grasping}
+\leftheader{Weisz et al.}
+
+\title{Assistive Grasping with an Augmented Reality UI}
+
+\twoauthors{Jonathan Weisz, Peter K. Allen}{Alexander G. Barszap, Sanjay S. Joshi}
+\twoaffiliations{Department of Computer Science, Columbia University}{Department of Mechanical and Aerospace Engineering, University of California, Davis}
+
+
+
+
+\begin{document}
+
+%\title{Assistive Robotic Grasping}
+\keywords{Human-robot interaction, grasp planning, shared control}
+
+
+
+\maketitle
+
+\section{Introduction}
+
+\input{intro}
+
+\section{Related Work}
+
+\input{related_work}
+
+\input{face_grasping}
+
+\input{semg_face_grasping.tex}
+
+%%%%Named reference model and we can use the same as numbered reference
+%%%%giving option by using natbib package
+
+
+\bibliographystyle{named}
+\bibliography{references/refs,references/references2,references/bci_refs2,references/grasp_quality}
+
+
+
+
+%%%%%%%%DOCUMENT END HERE
+\end{document}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%FOR BIB DATABASE%%%%%%%%%
+
+
+
