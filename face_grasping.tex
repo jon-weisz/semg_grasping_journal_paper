@@ -3,16 +3,10 @@
 \label{sec:pipeline_1}
 \begin{figure}
 	\centering
-	\includegraphics[width=.5\columnwidth]{images_4/overview_pipeline.png}
-	\caption{The four phases of a basic grasp planning task. Breaking the task into phases allows customization of the user interface for each phase independently to make optimal use of low input bandwidth.}
+	\includegraphics[width=.8\columnwidth]{ui_1.png}
+	\includegraphics[width=.8\columnwidth]{images_4/overview_pipeline.png}\\
+	\caption{ \emph{Top:} An annotated screenshot of the prototype grasp planning user interface in GraspIt!. During online planning, the user is presented with an augmented reality view of the target object and three renderings of the hand interacting with the scene. The \emph{Planner Hand}, which is the most transparent hand, demonstrates the current state of the planner. The \emph{Input Hand} which is of intermediate transparency, is the hand through which the user directs the planning system. Here you can see the rotational guides which allow the user to visualize their available control directions. The \emph{Solution Hand}, which is fully opaque, demonstrates the best grasp currently available. This is the grasp which is closest to the approach direction that the \emph{Input Hand} is demonstrating and which also has the best grasp quality. \emph{Bottom:} The four phases of a basic grasp planning task. Breaking the task into phases allows customization of the user interface for each phase independently to make optimal use of low input bandwidth.}
 	\label{fig:overview_pipeline}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=.4\columnwidth]{ui_1.png}
-	\caption{An annotated screenshot of the prototype grasp planning user interface in GraspIt!. During online planning, the user is presented with an augmented reality view of the target object and three renderings of the hand interacting with the scene. The \emph{Planner Hand}, which is the most transparent hand, demonstrates the current state of the planner. The \emph{Input Hand} which is of intermediate transparency, is the hand through which the user directs the planning system. Here you can see the rotational guides which allow the user to visualize their available control directions. The \emph{Solution Hand}, which is fully opaque, demonstrates the best grasp currently available. This is the grasp which is closest to the approach direction that the \emph{Input Hand} is demonstrating and which also has the best grasp quality.}
-	\label{fig:ui_1}
 \end{figure}
 \renewcommand*{\theHsection}{chX.\the\value{section}}
 In \cite{Weisz2012c}, we developed a prototype BCI enabled grasping platform through which we outlined a general strategy for an online assistive grasping system. 
@@ -30,9 +24,9 @@ Putting the human in the loop when planning and executing the grasp in real-time
 The Emotiv Epoc comes with three built-in signal processing modalities designed to detect emotional affect, facial movement, and EEG evoked responses. Combining these classifiers, we were able to derive a training paradigm for detection of four facial gestures robustly. For details see \cite{Weisz2013}.
 
 \subsection{User Interface}
-We augmented the Eigengrasp Planner GUI in the GraspIt! simulator (\cite{Miller2004}) with a visualization of the grasp planning scene that includes a number of guides and fiducials that allow the user to guide the planner fully inside the simulator. The augmented grasp planning scene is illustrated in Figure \ref{fig:ui_1}. 
+We augmented the Eigengrasp Planner GUI in the GraspIt! simulator (\cite{Miller2004}) with a visualization of the grasp planning scene that includes a number of guides and fiducials that allow the user to guide the planner fully inside the simulator. The augmented grasp planning scene is illustrated in Figure \ref{fig:overview_pipeline}. 
 
-The four facial gestures captured from the Epoc are treated as discrete on/off signals. We found some facial gestures, such as eyebrow raising, to be easier to maintain than others such as winking. These were assigned to control signals whose duration controlled some continuous value, such as position of the end effector along the guides. Two of the gestures are mapped to "Yes" and "No" inputs at decision points, while the remaining two control the rotation of the \emph{Input Hand} along the guides shown in Figure \ref{fig:ui_1}. A video demonstrating the operation of this prototype can be found here: \url{https://youtu.be/_b5ecKbIHBQ}.
+The four facial gestures captured from the Epoc are treated as discrete on/off signals. We found some facial gestures, such as eyebrow raising, to be easier to maintain than others such as winking. These were assigned to control signals whose duration controlled some continuous value, such as position of the end effector along the guides. Two of the gestures are mapped to "Yes" and "No" inputs at decision points, while the remaining two control the rotation of the \emph{Input Hand} along the guides shown in Figure \ref{fig:overview_pipeline}. A video demonstrating the operation of this prototype can be found here: \url{https://youtu.be/_b5ecKbIHBQ}.
 
 \subsection{Software Platform}
 

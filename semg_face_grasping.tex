@@ -78,7 +78,7 @@ We placed targets 1 and 2 in opposite corners of the screen because these inputs
 \begin{subfigure}[t]{.47\columnwidth}
 \centering
 \includegraphics[width=.99\columnwidth]{ui_3_b.png}
-\caption{\emph{System 3 Interface - Initial Review Phase.} After the subject selects the object, the Grasp View pane on the right is populated with a set of grasps from a database. Grasps that are reachable appear on a green background, while unreachable grasps are red. A robot hand appears that the user moves to demonstrate a desired starting pose. This demonstration hand is constrained to follow the two circular guides around the z and x axes of the object shown above. The topmost grasp in the grasp view window is the currently selected grasp, which is rendered in the planning scene with the planner hand.}
+\caption{\emph{System 3 Interface - Initial Review Phase.} After the subject selects the object, the Grasp View pane on the right is populated with a set of grasps from a database. Grasps that are reachable appear on a green background, while unreachable grasps are red. The topmost grasp in the grasp view window is the currently selected grasp, which is rendered in the planning scene with the planner hand.}
 \label{fig:semg_ui_b}
 \end{subfigure}
 \end{figure}
@@ -178,15 +178,16 @@ In our previous systems, the two 'continuous' inputs which shifted the hand arou
 In this system, the UI window is adaptive, providing more visual cues to the user as to what their goal is in each particular phase of the pipeline. The grasp previews are integrated with the pipeline guide display, and the pipeline guide areas also function as GUI buttons for the experimenter to use when familiarizing the subject with the UI. Each of the targets now has a corresponding color coded button. These new UI elements are shown in Figure \ref{fig:ui-4-object-selection} and Figure \ref{fig:ui-4-total-a}. While this may seem like unnecessary complexity, the UI is more visibly different in each phase and less extraneous information is presented. This seems to help subjects keep track of what phase they are in and what its purpose is. 
 
 \begin{figure}
-\begin{subfigure}[t]{.47\columnwidth}
 \centering
-\includegraphics[width=.9\columnwidth]{images_4/object_recognition_state.png}
+\begin{subfigure}[t]{.48\columnwidth}
+\centering
+\includegraphics[height=1.7in,width=.99\columnwidth]{images_4/object_recognition_state.png}
 \caption{\emph{System 4 - Object Recognition and Selection State.} The graspable objects in the seen are highlighted in red and green. Sending input 1 selects the green object as the target, input 2 cycles to the next object, and input 3 triggers the object recognition system to refresh.   The background UI area is rendered in red while the recognition is still processing.}
 \label{fig:ui-4-object-selection}
 \end{subfigure}
-\begin{subfigure}[t]{.47\columnwidth}
+\begin{subfigure}[t]{.48\columnwidth}
 \centering
-\includegraphics[width=.99\columnwidth]{images_4/matlab_ui.png}
+\includegraphics[height=1.7in,width=.99\columnwidth]{images_4/matlab_ui.png}
 \caption{\emph{System 4 - Grasp Refinement State.} The buttons on the right function as both guides for the result of hitting the color coded input options that will be presented to the use, as well as buttons that the user and experimenter use during the training stage. The sEMG is interface overlaid on the planning scene with the selected target highlighted in green.}
 \label{fig:ui-4-total-a}
 \end{subfigure}
@@ -212,8 +213,10 @@ To validate these design decisions, we tested our pipeline on 5 healthy subjects
 
 \begin{figure}
 \centering
-\includegraphics[width=.45\columnwidth,trim={30cm 40cm 20cm 20cm},clip=true]{user_semg_2.jpg}
-\caption{The sEMG system electrodes. In these experiments, we placed the electrodes behind the ear of the subject to measure contractions of the PA muscle. We stabilize the electrodes by wrapping the head of the electrodes in Silly Putty silicone putty.}
+\includegraphics[width=.49\textwidth,trim={30cm 40cm 20cm 20cm},clip=true]{user_semg_2.jpg}
+\includegraphics[width=.49\textwidth]{images_4/semg_clutter_grasp.png}
+\caption{\emph{Left:} A typical grasp of the shampoo bottle from the side in the cluttered scene. Note that the hand is just able to fit between the other objects to grasp the desired target. Note that the ability to plan this grasp in such a restricted environment is an indication that this system is very successful at handling the cluttered scene.\emph{Right:} The sEMG system electrodes. In these experiments, we placed the electrodes behind the ear of the subject to measure contractions of the PA muscle. We stabilize the electrodes by wrapping the head of the electrodes in Silly Putty silicone putty.}
+
 \label{fig:silly-putty}
 \end{figure}
 
@@ -396,13 +399,6 @@ Grasp & Success & Time \\ \hline \hline
 \label{tab:results_3}
 \end{table}
 %\doublespace
-
-
-\begin{figure}
-\includegraphics[width=.5\columnwidth]{images_4/semg_clutter_grasp.png}
-\caption{A typical grasp of the shampoo bottle from the side in the cluttered scene. Note that the hand is just able to fit between the other objects to grasp the desired target. Note that the ability to plan this grasp in such a restricted environment is an indication that this system is very successful at handling the cluttered scene.}
-\label{fig:semg-clutter-grasp}
-\end{figure}
 
 \section{Conclusions}
 In this paper, we've discussed the many details involved in building a full assistive grasping system around an online grasp planner. The key challenge was to find the right balance of complexity and usability, particularly with respect to the design of the visual aspects of the interface. A clear user interface is the key to allow a non-expert user to apply their intuition to the grasping problem and provide the added value that makes the system work well in spite of sensor noise and any shortcomings in the heuristics applied by the automated parts of the system. Careful development of this platform has allowed us to produce an extremely capable system around components whose cost and complexity is not prohibitive. 
