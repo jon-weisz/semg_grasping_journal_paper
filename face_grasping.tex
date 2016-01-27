@@ -3,14 +3,14 @@
 \label{sec:pipeline_1}
 \begin{figure}
 	\centering
-	\includegraphics[width=.8\columnwidth]{images_4/overview_pipeline.png}
+	\includegraphics[width=.5\columnwidth]{images_4/overview_pipeline.png}
 	\caption{The four phases of a basic grasp planning task. Breaking the task into phases allows customization of the user interface for each phase independently to make optimal use of low input bandwidth.}
 	\label{fig:overview_pipeline}
 \end{figure}
 
 \begin{figure}
 	\centering
-	\includegraphics[width=.8\columnwidth]{ui_1.png}
+	\includegraphics[width=.4\columnwidth]{ui_1.png}
 	\caption{An annotated screenshot of the prototype grasp planning user interface in GraspIt!. During online planning, the user is presented with an augmented reality view of the target object and three renderings of the hand interacting with the scene. The \emph{Planner Hand}, which is the most transparent hand, demonstrates the current state of the planner. The \emph{Input Hand} which is of intermediate transparency, is the hand through which the user directs the planning system. Here you can see the rotational guides which allow the user to visualize their available control directions. The \emph{Solution Hand}, which is fully opaque, demonstrates the best grasp currently available. This is the grasp which is closest to the approach direction that the \emph{Input Hand} is demonstrating and which also has the best grasp quality.}
 	\label{fig:ui_1}
 \end{figure}
@@ -24,9 +24,9 @@ Although fully automated approaches for each of these subtasks have been the sub
 Putting the human in the loop when planning and executing the grasp in real-time fundamentally changes the nature of the problem as compared to a fully automated system. The key challenge becomes conveying information to the user effectively about the state of the system and then using the low bandwidth information gained from the user efficiently. This requires careful design of the interfaces provided to the user and of the control scheme for inferring intent from the user's input. Additionally, in order to present the user with reasonable grasping options, we need to extend the existing grasp stability analysis to deal with the most common problem that arises in unstructured environments, object localization errors due to sensor noise (See \cite{Weisz2012} for an analysis of the effect of sensor noise on the Eigengrasp Planner). 
 
 \subsection{Prototype Design Components}
-\subsubsection*{Hardware Components}The manipulator arm for the initial prototype was composed of an industrial St\"{a}ubli TX60L robotic arm and a BarrettHand gripper. The object localization system was based on point clouds captured by a Microsoft Kinect depth camera. We sought an input device that might be representative of what could be achieved by a low cost BCI device in order to evaluate a user interface under realistic conditions of error and throughput. The Emotiv Epoc was chosen because of the convenience of its wireless form factor and relatively low cost. 
+\subsubsection{Hardware Components}The manipulator arm for the initial prototype was composed of an industrial St\"{a}ubli TX60L robotic arm and a BarrettHand gripper. The object localization system was based on point clouds captured by a Microsoft Kinect depth camera. We sought an input device that might be representative of what could be achieved by a low cost BCI device in order to evaluate a user interface under realistic conditions of error and throughput. The Emotiv Epoc was chosen because of the convenience of its wireless form factor and relatively low cost. 
 
-\subsubsection*{EMG Input Processing}
+\subsubsection{EMG Input Processing}
 The Emotiv Epoc comes with three built-in signal processing modalities designed to detect emotional affect, facial movement, and EEG evoked responses. Combining these classifiers, we were able to derive a training paradigm for detection of four facial gestures robustly. For details see \cite{Weisz2013}.
 
 \subsection{User Interface}
@@ -54,7 +54,7 @@ After initial experiences with \emph{System 1}, we noted several shortcomings in
 \subsection{Handling Novel Objects}
 \begin{figure}
 	\centering
-	\includegraphics[width=.95\columnwidth]{ui_2_flipped.png}
+	\includegraphics[width=.6\columnwidth]{ui_2_flipped.png}
 	\caption{\emph{System 2 Interface - Online Planner Phase}. The user interface contains three windows: The main window containing three labeled robot hands and the target object with the aligned point cloud, the pipeline guide window containing hints for the user to guide their interaction with each phase of the planner, and the grasp view window containing rendering of the ten best grasps found by the planner thus far.}
 	\label{fig:ui_2}
 \end{figure}
@@ -62,15 +62,15 @@ In order to handle objects that are not in the recognition system, we rely on th
 
 
 \begin{figure}
-\begin{subfigure}[b]{\columnwidth}
+\begin{subfigure}[b]{.45\columnwidth}
 \centering
-\includegraphics[height=0.2\textheight]{alignment_1.png}
+\includegraphics[width=.95\columnwidth]{alignment_1.png}
 \caption{Point clouds with RGB texture from the vision system. On the left is a flashlight along with its aligned point cloud in white. On the right is the point cloud of a juice bottle along with the best model from the vision system’s object database, a shampoo bottle, in white.}
 \label{fig:alignment_1}
 \end{subfigure}
-\begin{subfigure}[b]{\columnwidth}
+\begin{subfigure}[b]{.45\columnwidth}
 \centering
-\includegraphics[height=0.2\textheight]{unknown_objects_1.png}
+\includegraphics[height=0.95\columnwidth]{unknown_objects_1.png}
 \caption{The two objects which are aligned on the right of the figure above. The shampoo bottle is in the object database. The juice bottle is not. The two are roughly the same width, and this shampoo bottle can be an appropriate proxy for the juice bottle in the planner.}
 \label{fig:unknown_objects_1}
 \end{subfigure}
@@ -81,58 +81,23 @@ In order to handle objects that are not in the recognition system, we rely on th
 \subsection{Incorporating a Grasp Database}
 One useful aspect of mapping the object in the scene to a set of objects from a database is that we can also pre-plan a set of grasps for each object. This provides a method for the user to skip the slower online planning phase, since we will already rely more on the user and less on the automated grasp quality analysis. 
 
-Using a grasp database also allows us to manually design good grasps for particular affordances. Such affordances are not generally grasped proficiently by generic grasp planners. Fig. \ref{fig:manual_grasp_1} demonstrates such a grasp. In experiments, this grasp was successful 100\% of the time, but only because the soft plastic surface of the object deforms during grasp acquisition to allow the finger to pass through the hole in the handle region of the bottle. Capturing this behavior in a simulator would require modeling dynamic object deformations. Currently, accurate simulations of such properties are too slow for sampling based planners, and so human annotation of such grasps is necessary. Where such grasps are available and match up with the object geometry, they are very useful. 
+Using a grasp database also allows us to manually design good grasps for particular affordances that are difficult for an automated planner to recognize. Figure \ref{fig:manual_grasp_1} demonstrates such a grasp, which is realizable by the BarrettHand only because the soft plastic surface of the object deforms during grasp acquisition to allow the finger to pass through the hole in the handle region of the bottle.  In experiments, this grasp was successful 100\% of the time.  Capturing this behavior in a simulator would require modeling dynamic object deformations. Currently, accurate simulations of such properties are too slow for sampling based planners, and so human annotation of such grasps is necessary. 
 
 To generate the grasp database, we ran the Eigengrasp Planner off-line six times for twenty minutes each with the approach direction of the palm aligned to the major axes in the positive and negative directions, using the best grasp from each direction in the database. If there were fewer than ten grasps in the database, including manually inserted grasps, then the highest quality grasps were selected from among all of the available grasps until a full ten are available. 
 
 \subsection{Grasping Pipeline}
-\begin{figure*}[th!]
+\begin{figure}[th!]
 	\centering
-	\includegraphics[width=1.5\columnwidth]{pipeline_2.png}
+	\includegraphics[width=1\columnwidth]{pipeline_2.png}
 	\caption{The phases of the modified grasping pipeline incorporating more control over the vision system and the grasp database. If the user chooses the \emph{nth} grasp from the database, \emph{n+4} user inputs are required. If none of the grasps are suitable, the online planner can be invoked with a few simple inputs to refine one of the grasps further.}
 	\label{fig:pipeline_2}
-\end{figure*}
+\end{figure}
 \label{sec:pipline_2}
-These improvements result in a more flexible, but complex grasping pipeline. In this pipeline, there are three additional phases before the  \emph{planning-review-execute} pipeline outlined previously in which the augmented visualizations are used to provide the user with extra flexibility in initializing the planner. These phases allow the user to first control the vision systems object detection and localization, then review the set of available grasps retrieved from the pre-planned database, and finally to chose whether to activate the online refinement or simply execute the retrieved grasp. The phases of the pipeline and transitions between them are outlined as a state machine in Figure \ref{fig:pipeline_2} and Table \ref{tab:gestures_2}. Notice that these modifications create two possible paths to the final phase of grasp execution, trading off complexity for potential speed improvements. 
+These improvements result in a more flexible, but complex grasping pipeline. In this pipeline, there are three additional phases before the  \emph{planning-review-execute} pipeline outlined previously in which the augmented visualizations are used to provide the user with extra flexibility in initializing the planner. These phases allow the user to first control the vision systems object detection and localization, then review the set of available grasps retrieved from the pre-planned database, and finally to chose whether to activate the online refinement or simply execute the retrieved grasp. The phases of the pipeline and transitions between them are outlined as a state machine in Figure \ref{fig:pipeline_2}. Notice that these modifications create two possible paths to the final phase of grasp execution, trading off complexity for potential speed improvements. 
 
 To help the user manage this complexity, we added a "Guide Window" that displays the transition table for the current phase, as shown in Figure \ref{fig:ui_2}. Throughout the pipeline, two of the facial gestures are associated with transitions between phases of the pipeline, while the other two provide direction to the online planner. In the "Guide Window", the left side of the window shows the current phase in yellow, the center of the window shows the result of the Gesture 1 transition in red, and the right side of the window shows the result of the Gesture 2 transition in green. 
 
 Below the "Guide Window," we visualize the top ten grasps available to the planner. This allows the user to judge their options as they are retrieved from the database or repopulated by the online grasp planner. 
-
-Each phase of the grasping pipeline is outlined in detail below:
-
-\emph{Object Localization:} The Eigengrasp planner requires a complete description of the geometry and location of the target object. The object localization system we have incorporated, described in detail in Section \ref{sec:rec_system}, uses a depth camera as input. The user is responsible for judging whether the detected model aligns to the object well where the user intends to grasp the object. As seen in Figures \ref{fig:alignment_1} the alignment found does not need to reflect the semantic or geometric reality perfectly, as the user is presented with many grasping options and can exercise their own judgment. The user can send Gesture 1 to run the object recognition system again and attempt to find a better fit. Gesture 2 accepts the current fit and moves on to the next phase. 
-
-\emph{Database Planning:} Once the object is identified, the planner loads a set of pre-planned grasps from a database. These grasps are presented to the user in the grasp view window. Gesture 1 allows the user to browse through the list of grasps and visualize them in the larger main window. The user is able to chose the grasp that best reflects their intent. Gesture 2 signals acceptance of the current grasp. 
-
-\emph{Planner Initialization:} Having selected a grasp from the initial set of pre-planned grasps, the user can chose to either execute this grasp using Gesture 1, shortcutting the grasp planning phase and proceeding to the grasp Confirm Grasp phase, or they can run an automated grasp planner using the selected grasp as a guide using Gesture 2. By choosing one of the grasps from the database and skipping straight to the confirmation phase, the user can significantly reduce the amount of effort required to grasp an object. To choose the \emph{n}th grasp, only \emph{n+4} inputs are required.
-
-
-\emph{Grasp Planning Phase:} We center the hand around the object and initialize the Eigengrasp planner. In this phase the user can move the hand around the object using gestures 3 and 4, which allow ``continuous'' input. Each gesture moves an \emph{Input Hand} around a corresponding axis guide, which allows the user to visualize how the hand will move. Gesture 3 rotates around the X axis of the object, while gesture 4 rotates around the object's Z axis. When the planner is run, the demonstrated pose is used as a part of the objective function for the planner. While the planner is running, the \emph{Input Hand} is made 30\% transparent. A second, fully opaque \emph{Current Grasp hand} is rendered showing the highest quality grasp from nearby the current approach direction. To give the user feedback about the progress of the planner, a third \emph{Planner Hand} is rendered with 80\% transparency showing the last tested state. A screenshot of the user interface is presented in Figure \ref{fig:ui_2}. While the planner is running,  Gesture 1 iterates through the grasp list, visualizing the current grasp in the grasp planning scene using the \emph{Current Grasp Hand}. Gesture 2 stops the planner and enters the Review Phase.
-
-\emph{Review Phase:} The planner is now stopped, allowing the user to review the list of best grasps and choose one for execution. As in the previous phase, the \emph{Current Grasp Hand} is used to display the grasps to the user. Now the user can evaluate the grasp more closely and examine the quality metrics for the grasp. If the user is satisfied, they can confirm selection of the grasp and send it to the next phase of the pipeline. If the user does not want to execute any of the found grasps, they can select the grasp that is closest to their intent and restart the planning process.
-
-\emph{Confirmation Phase:} In this phase, Gesture 2 will restart the planner in the online planning phase, while Gesture 1 executes the grasp. The most common input error is mistaken detection of two consecutive signals of the same type when only one is intended. Switching the gesture used to progress forwards seems unintuitive, but it is necessary to stop the user from inadvertently executing grasps through inattention or misclassification. 
-
-\emph{Execution Phase:} The arm motion planner attempts to execute the grasp. If the planner cannot find a valid reaching motion to execute the grasp, the user is notified by flashing the screen black to indicate an error, similar to the \emph{visual bell} used to indicate errors in terminal emulators. If this occurs, the user can restart the planning phase to find a new grasp. If the planner can find a solution, the grasp is executed with the actual arm and hand.
-
-\begin{table}
-\centering
-\begin{tabular}{ | c | c | c | c | }
-\hline
-Phase & Gesture 1 & Gesture 2 \\ \hline \hline
-Object Recognition & Rerun Recognition & Database Planning \\ \hline
-Database Planning & Next Grasp & Planner Initialization \\ \hline
-Planner Initialization & Confirm Grasp & Online Planning \\ \hline
-Online Planning & Next Grasp &  Review Grasps \\ \hline
-Review Grasps & Next Grasp & Confirm Grasp \\ \hline
-Confirm Grasp & Execute Grasp & Restart Planner \\ \hline
-Execute Grasp & Review Grasps & N/A \\ \hline
-\end{tabular}
-\caption{The phase transitions table of a state machine representing the \emph{System 2} pipeline. Each transition is evoked by a facial gesture. In this pipeline, gestures 3 and 4 only control the input to the online planner, and never evoke a state transition.}
-\label{tab:gestures_2}
-\end{table}
-
 
 
 \begin{figure}
