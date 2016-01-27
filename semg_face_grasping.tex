@@ -69,17 +69,18 @@ We placed targets 1 and 2 in opposite corners of the screen because these inputs
 
 
 \begin{figure}
+\begin{subfigure}[t]{.47\columnwidth}
 \centering
 \includegraphics[width=.99\columnwidth]{ui_3_a.png}
 \caption{\emph{System 3 Interface - Object Selection Phase.} The subject is able to see the planning scene in the main UI window. The window on the bottom tells the user the current phase and what the green and red inputs will do in this phase. In this phase, the subject sees the point cloud and hits the red target until the object they wish to grasp is highlighted in green. Then they hit the green target to proceed to the next phase.}
 \label{fig:semg_ui_a}
-\end{figure}
-
-\begin{figure}
+\end{subfigure}
+\begin{subfigure}[t]{.47\columnwidth}
 \centering
 \includegraphics[width=.99\columnwidth]{ui_3_b.png}
 \caption{\emph{System 3 Interface - Initial Review Phase.} After the subject selects the object, the Grasp View pane on the right is populated with a set of grasps from a database. Grasps that are reachable appear on a green background, while unreachable grasps are red. A robot hand appears that the user moves to demonstrate a desired starting pose. This demonstration hand is constrained to follow the two circular guides around the z and x axes of the object shown above. The topmost grasp in the grasp view window is the currently selected grasp, which is rendered in the planning scene with the planner hand.}
 \label{fig:semg_ui_b}
+\end{subfigure}
 \end{figure}
 
 \subsection{System 3 Pipeline}
@@ -103,7 +104,7 @@ We placed targets 1 and 2 in opposite corners of the screen because these inputs
 To validate this system, we recruited a male 30 year old impaired subject with limited upper limb mobility due to a C3-C4 spinal injury. All testing of \emph{System 3} was approved by the Institutional Review Board of the University of California, Davis under Protocol 251192-10. This subject had previous experience with the sEMG device, but had not been trained on this interface. For this work, we measured the activity in the subject's PA muscle to avoid the need to shave the subject's hair. The subject was recruited and trained at the UC Davis site, and operated the robot without ever having any interaction with it or the experiment site in the real world at the Columbia University Robotics Group lab. The setup is shown in Figure \ref{fig:user-semg}. The top of the figure shows the subject with the device attached and using the grasp planning system. The bottom left image is a closeup of the device, which demonstrates how low profile and minimalistic this device is. The bottom right shows the target scene in the robot workspace, with three container objects. The results of this experiment were published in \cite{Weisz2014}, and a video illustrating the experiment can be found at \url{https://youtu.be/tRPXmb9yUbA}.
 \begin{figure}
 \centering
-\includegraphics[width=.99\columnwidth]{user_semg.png}
+\includegraphics[width=.8\columnwidth]{user_semg.png}
 \caption{An impaired subject in the UC Davis RASCAL
 lab (top) operating our sEMG-Assistive Grasping interface
 to grasp a shaving gel bottle in the Columbia Robotics
@@ -177,10 +178,18 @@ In our previous systems, the two 'continuous' inputs which shifted the hand arou
 In this system, the UI window is adaptive, providing more visual cues to the user as to what their goal is in each particular phase of the pipeline. The grasp previews are integrated with the pipeline guide display, and the pipeline guide areas also function as GUI buttons for the experimenter to use when familiarizing the subject with the UI. Each of the targets now has a corresponding color coded button. These new UI elements are shown in Figure \ref{fig:ui-4-object-selection} and Figure \ref{fig:ui-4-total-a}. While this may seem like unnecessary complexity, the UI is more visibly different in each phase and less extraneous information is presented. This seems to help subjects keep track of what phase they are in and what its purpose is. 
 
 \begin{figure}
+\begin{subfigure}[t]{.47\columnwidth}
 \centering
 \includegraphics[width=.9\columnwidth]{images_4/object_recognition_state.png}
 \caption{\emph{System 4 - Object Recognition and Selection State.} The graspable objects in the seen are highlighted in red and green. Sending input 1 selects the green object as the target, input 2 cycles to the next object, and input 3 triggers the object recognition system to refresh.   The background UI area is rendered in red while the recognition is still processing.}
 \label{fig:ui-4-object-selection}
+\end{subfigure}
+\begin{subfigure}[t]{.47\columnwidth}
+\centering
+\includegraphics[width=.99\columnwidth]{images_4/matlab_ui.png}
+\caption{\emph{System 4 - Grasp Refinement State.} The buttons on the right function as both guides for the result of hitting the color coded input options that will be presented to the use, as well as buttons that the user and experimenter use during the training stage. The sEMG is interface overlaid on the planning scene with the selected target highlighted in green.}
+\label{fig:ui-4-total-a}
+\end{subfigure}
 \end{figure}
 
 \subsection*{System 4 Pipeline}
@@ -196,14 +205,6 @@ The updated pipeline is slightly shorter and makes more varied use of inputs 3 a
 
 \emph{Grasp Choice Confirmation:} This phase is similar to \emph{System 3}, but with only the selected grasp shown in the grasp preview window. The user sends input 1 to go back to the Grasp Refinement phase and input 2 to send the grasp for execution on the robot.
 
-\begin{figure}
-\centering
-\includegraphics[width=.99\columnwidth]{images_4/matlab_ui.png}
-\caption{\emph{System 4 - Grasp Refinement State.} The buttons on the right function as both guides for the result of hitting the color coded input options that will be presented to the use, as well as buttons that the user and experimenter use during the training stage. The sEMG is interface overlaid on the planning scene with the selected target highlighted in green.}
-\label{fig:ui-4-total-a}
-\end{figure}
-
-
 \subsection{Validation}
 To validate these design decisions, we tested our pipeline on 5 healthy subjects, 2 male and 3 female, ages 22-30. All testing was approved by the Institutional Review Board of the Columbia University under Protocol AAAJ6951. To simplify testing of the UI, we did not attempt to train the subjects on the two dimensional version of the user interface. Instead, the subjects were given a similar user interface, but the cursor is constrained to move towards the target representing the 'selected' input, which is outlined in green as shown in Figure \ref{fig:ui-4-total-a}. In order to switch which target is currently 'selected', the user leaves the rest area and returns to it without hitting a target. This cycles the 'selected' target forward by one. This change allowed us to focus on testing improvements the user interface and grasp planning pipeline without needing the more extensive training necessary to train a subject to achieve full 2D control over the cursor. 
 
@@ -211,7 +212,7 @@ To validate these design decisions, we tested our pipeline on 5 healthy subjects
 
 \begin{figure}
 \centering
-\includegraphics[width=.95\columnwidth,trim={30cm 40cm 20cm 20cm},clip=true]{user_semg_2.jpg}
+\includegraphics[width=.45\columnwidth,trim={30cm 40cm 20cm 20cm},clip=true]{user_semg_2.jpg}
 \caption{The sEMG system electrodes. In these experiments, we placed the electrodes behind the ear of the subject to measure contractions of the PA muscle. We stabilize the electrodes by wrapping the head of the electrodes in Silly Putty silicone putty.}
 \label{fig:silly-putty}
 \end{figure}
@@ -398,7 +399,7 @@ Grasp & Success & Time \\ \hline \hline
 
 
 \begin{figure}
-\includegraphics[width=\columnwidth]{images_4/semg_clutter_grasp.png}
+\includegraphics[width=.5\columnwidth]{images_4/semg_clutter_grasp.png}
 \caption{A typical grasp of the shampoo bottle from the side in the cluttered scene. Note that the hand is just able to fit between the other objects to grasp the desired target. Note that the ability to plan this grasp in such a restricted environment is an indication that this system is very successful at handling the cluttered scene.}
 \label{fig:semg-clutter-grasp}
 \end{figure}
