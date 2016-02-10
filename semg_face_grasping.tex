@@ -13,13 +13,13 @@ The general methodology is outlined in Figure \ref{fig:semg_processing_pipeline}
 
 The total powers of two different frequency bands of the single sEMG signal were computed using two band pass filters for 80-100 Hz (Band 1) and 130-150 Hz (Band 2). These bands were selected ad-hoc, based on previous experience. The output of the two filters produced comparable powers during maximum voluntary contraction. The filter outputs were combined linearly as described in Equation \ref{eq:equation_1}. 
 
-\begin{subequations}
-	\begin{align}
-	x_{pos} &= 1.75 \frac{ChannelPower_1}{gain_1} - 0.75 \frac{ChannelPower_2}{gain_2}\\
-	y_{pos} &= 1.75 \frac{ChannelPower_2}{gain_2} - 0.75 \frac{ChannelPower_1}{gain_1}
-	\end{align}
+
+\begin{equation}
+\centering
+\left[ \begin{array}{c} x\\ y \end{array} \right] = \left[\begin{array}{c c} 1.75 gain_1 & -.75 gain_2 \\ -.75gain_{1} &  1.75gain_{2}\end{array} \right]\left[\begin{array}{c}ChannelPower_1 \\ ChannelPower_2\end{array}\right]
 	\label{eq:equation_1}
-\end{subequations}
+\end{equation}
+
 
 Without this transformation the cursor could not reach points along the \emph{x} or \emph{y} axis as there can never be zero power in either of the frequency bands. The gains for each band are set for each subject after a short calibration procedure, as described in \cite{JoshiTwoDimCursor} to establish the subject’s comfort level maintaining a large enough voluntary muscle contraction to move the cursor to any part of the screen.
 
@@ -69,12 +69,14 @@ We placed targets 1 and 2 in opposite corners of the screen because these inputs
 
 
 \begin{figure}
+\centering
 \begin{subfigure}[t]{.47\columnwidth}
 \centering
 \includegraphics[width=.99\columnwidth]{ui_3_a.png}
 \caption{\emph{System 3 Interface - Object Selection Phase.} The subject is able to see the planning scene in the main UI window. The window on the bottom tells the user the current phase and what the green and red inputs will do in this phase. In this phase, the subject sees the point cloud and hits the red target until the object they wish to grasp is highlighted in green. Then they hit the green target to proceed to the next phase.}
 \label{fig:semg_ui_a}
 \end{subfigure}
+\hspace{1mm}
 \begin{subfigure}[t]{.47\columnwidth}
 \centering
 \includegraphics[width=.99\columnwidth]{ui_3_b.png}
@@ -85,17 +87,17 @@ We placed targets 1 and 2 in opposite corners of the screen because these inputs
 
 \subsection{System 3 Pipeline}
 \label{section:pipeline-v3}
-\emph{Initialization:} This phase has been modified from \emph{System 2} in that the view is aligned to the true view of the camera, rather than being centered on the target object. This improves the user's overall situational awareness. The user sends input 1 to activate the object recognition system. If the recognized objects align well with the point cloud sent, they can accept the results with input 1. If not, they can rerun the recognition system with input 2.
+\emph{Initialization:} The subject is shown presented with a view of the scene from the perspective of the depth camera. The user sends input 1 to activate the object recognition system. If the recognized objects align well with the point cloud sent, they can accept the results with input 1. If not, they can rerun the recognition system with input 2.
 
 \emph{Object Selection:} The first detected object is highlighted in green as the target object. To select an object as a target, the user sends input 2. To cycle to the next object in the recognized object list the user sends input 1. The non-target objects are all highlighted in red. The non-target objects are replaced with lower resolution models when a target is selected, which makes the planning phases faster. 
 
-\emph{Initial Review:} As in \emph{System 2}, the user is presented with a list of pre-planned grasps from a precomputed database. This phase has been modified from \emph{System 2} to present the user with a clearer visualization and reachability information. As they iterate through the grasp list, the grasp in the middle and bottom rows shift up and the next grasp in the list moves in to the bottom position. Moving the demonstration hand will also cause the grasp list to re-sort bringing the new approach direction to the top of the list. Reachable grasps are presented on a green background, while unreachable grasps are presented on a red background. The user sends input 1 to increment through the grasp list. When the user finds a reasonable looking grasp, they send input 2 to select the grasp.
+\emph{Initial Review:} The user is presented with a list of pre-planned grasps from a precomputed database. This phase has been modified from \emph{System 2} to present the user with a clearer visualization and reachability information. As they iterate through the grasp list, the grasp in the middle and bottom rows shift up and the next grasp in the list moves in to the bottom position. Moving the demonstration hand will also cause the grasp list to re-sort bringing the new approach direction to the top of the list. Reachable grasps are presented on a green background, while unreachable grasps are presented on a red background. The user sends input 1 to increment through the grasp list. When the user finds a reasonable looking grasp, they send input 2 to select the grasp.
 
-\emph{Planner Initialization:} This phase is the same as \emph{System 2}. The user is presented with the choice to either accept the grasp from the third phase with input 1, proceeding straight to the Grasp Choice Confirmation phase or they can send input 2 to refine their chosen grasp further.
+\emph{Planner Initialization:} The user is presented with the choice to either accept the grasp from the previous phase with input 1, proceeding straight to the Grasp Choice Confirmation phase or they can send input 2 to refine their chosen grasp further.
 
-\emph{Grasp Refinement:} This phase has been modified from \emph{System 2} to provide feedback about the feasibility of their demonstrated approach direction and grasps. New grasps are displayed with a white background in the grasp preview pane on the right side of the screen while they are being analyzed for reachability. Sending input 2 stops the planner and proceeds to the Final Grasp Review phase.
+\emph{Grasp Refinement:} The online planner runs, presenting the user with updated options as new grasps are found. The new grasps are displayed with a white background in the grasp preview pane on the right side of the screen while they are being analyzed for reachability. Moving the demonstration hand causes the planner to generate grasps from the demonstrated approach direction. Sending input 2 stops the planner and proceeds to the Final Grasp Review phase.
 
-\emph{Final Grasp Review:} This phase is similar to \emph{System 2}, but adapted to provide more feedback with fewer grasp previews. The user sends input 1 to select the next grasp on the grasp list. They send input 2 to select that grasp. 
+\emph{Final Grasp Review:} The user is presented with three grasps at a time, which they can iterate through to select one that represents their intent. The user sends input 1 to switch to the next grasp on the grasp list. They send input 2 to select the current grasp. 
 
 \emph{Grasp Choice Confirmation:} The user sends input 1 to go back to the Grasp Refinement phase and input 2 to send the grasp for execution on the robot.
 
@@ -170,7 +172,7 @@ Because the trajectory planners are stochastic, their performance is highly task
 
 The single-query bidirectional variant of the PRM planner (SBL) produced plans that seemed smoother in the region near the object. Planning grasps in a cluttered scene is state space in which there is a very narrow valid region near the goal state, and so one might expect a bidirectional planner to find a more optimal path out of that region because it will spend more resources directly on that part of the problem. 
 
-However, we found empirically, when the caching scheme failed to find a reasonable neighbor, the SBL planner's success rate dropped to 30\%, whereas the PRM planner's success rate remained the same. This led to slight lag in performance as the cache was populated. So, for the online reachability verification, we used the PRM planner with a segment length of 0.05, while for producing the actual grasp on the robot we used the SBL planner. These changes removed the online reachability checking as a bottleneck for the online grasp refinement phase of the pipeline. \footnote{Although MoveIt! includes a benchmarking suite for determining the optimal parameters for a set of problems, it cannot be used with MoveIt!'s pick and place grasping pipeline, which handles the approach and lift phases of the path planning, or with robots that have some joints with continuous joint ranges. As such, we implemented our own, less comprehensive optimization script.}
+However, we found empirically, when the caching scheme failed to find a reasonable neighbor, the SBL planner's success rate dropped to 30\%, whereas the PRM planner's success rate remained the same. This led to slight lag in performance as the cache was populated. So, for the online reachability verification, we used the PRM planner with a segment length of 0.05, while for producing the actual grasp on the robot we used the SBL planner. These changes removed the online reachability checking as a bottleneck for the online grasp refinement phase of the pipeline. \footnote{Although MoveIt! includes a benchmarking suite for determining the optimal parameters for a set of problems, it cannot be used with MoveIt!'s pick and place grasping pipeline, which handles the approach and lift phases of the path planning, or with robots that have some joints with continuous joint ranges. As such, we implemented our own ad-hoc optimization script.}
 
 \subsection{Further UI Improvements}
 In our previous systems, the two 'continuous' inputs which shifted the hand around the object were not part of the pipeline guide display which showed the user which phase they were in and what their inputs would do. In every phase of the pipeline, they always did the same thing. However, in this system, the purpose of these inputs can also change in each phase. In addition, our previous test user indicated that there should be a clearer differentiation between the augmented reality region containing the grasp planning scene and the rest of the UI and fewer grasp options presented during the parts of the pipeline where they are not needed.
@@ -185,6 +187,7 @@ In this system, the UI window is adaptive, providing more visual cues to the use
 \caption{\emph{System 4 - Object Recognition and Selection State.} The graspable objects in the seen are highlighted in red and green. Sending input 1 selects the green object as the target, input 2 cycles to the next object, and input 3 triggers the object recognition system to refresh.   The background UI area is rendered in red while the recognition is still processing.}
 \label{fig:ui-4-object-selection}
 \end{subfigure}
+\hspace{1mm}
 \begin{subfigure}[t]{.48\columnwidth}
 \centering
 \includegraphics[height=1.7in,width=.99\columnwidth]{images_4/matlab_ui.png}
@@ -213,9 +216,10 @@ To validate these design decisions, we tested our pipeline on 5 healthy subjects
 
 \begin{figure}
 \centering
-\includegraphics[width=.49\textwidth,trim={30cm 40cm 20cm 20cm},clip=true]{user_semg_2.jpg}
 \includegraphics[width=.49\textwidth]{images_4/semg_clutter_grasp.png}
-\caption{\emph{Left:} A typical grasp of the shampoo bottle from the side in the cluttered scene. Note that the hand is just able to fit between the other objects to grasp the desired target. Note that the ability to plan this grasp in such a restricted environment is an indication that this system is very successful at handling the cluttered scene.\emph{Right:} The sEMG system electrodes. In these experiments, we placed the electrodes behind the ear of the subject to measure contractions of the PA muscle. We stabilize the electrodes by wrapping the head of the electrodes in Silly Putty silicone putty.}
+\hspace{1mm}
+\includegraphics[width=.49\textwidth,trim={30cm 40cm 20cm 20cm},clip=true]{user_semg_2.jpg}
+\caption{\emph{Left:} A typical grasp of the shampoo bottle from the side in the cluttered scene. Note that the hand is just able to fit between the other objects to grasp the desired target. Note that the ability to plan this grasp in such a restricted environment is an indication that this system is very successful at handling the cluttered scene. \emph{Right:} The sEMG system electrodes. In these experiments, we placed the electrodes behind the ear of the subject to measure contractions of the PA muscle. We stabilize the electrodes by wrapping the head of the electrodes in Silly Putty silicone putty.}
 
 \label{fig:silly-putty}
 \end{figure}
@@ -234,7 +238,7 @@ We placed the objects on the table in proximity to one another as shown in Figur
 \label{sec:semg_results}
 The results of the experiment for 5 subjects are tabulated in Tab. \ref{tab:results_3}. On average, the subjects were successful in grasping 82\% of the objects within 92 seconds of the first time their cursor left the rest area. With respect to speed,  results are comparable, and indeed somewhat better than the amount of time it took subjects to grasp objects with the Emotiv Epoc, even though the subject may have to iterate over the possible options before selecting them. Subjects 2 and 3 were the best able to control the cursor, having previously been able to move their ears already, and also performed the best in these experiments. These results indicate that the underlying planning system is providing options that the less capable subjects are not exploring because they are having more difficult with the UI. 
 
-For the shampoo bottle, there are relatively fewer grasps that can succeed as compared to the rotationally symmetric shaving gel bottle and the taller, sloping detergent bottle. The only feasible grasps from the side for the shampoo bottle are directly from the side, aligned with the wide axis of the bottle, as demonstrated in Figure \ref{fig:semg-clutter-grasp}. This narrow feasible region and the potential for many collisions with the other objects in the scene during the reaching motion to this region makes this a particularly difficult grasp, especially when the clearance around the grasp is as tight as it is in Figure \ref{fig:semg-clutter-grasp}. Without the partial plan caching implemented in the online trajectory planner, planning grasps to this region using stochastic, sampling based planners is extremely unreliable. With the caching scheme, this grasp was successfully found 100\% of the time, although the planning time is somewhat longer than the other grasp tasks.  
+For the shampoo bottle, there are relatively fewer grasps that can succeed as compared to the rotationally symmetric shaving gel bottle and the taller, sloping detergent bottle. The only feasible grasps from the side for the shampoo bottle are directly from the side, aligned with the wide axis of the bottle, as demonstrated in Figure \ref{fig:silly-putty}. This narrow feasible region and the potential for many collisions with the other objects in the scene during the reaching motion to this region makes this a particularly difficult grasp, especially when the clearance around the grasp is as tight as it is in Figure \ref{fig:silly-putty}. Without the partial plan caching implemented in the online trajectory planner, planning grasps to this region using stochastic, sampling based planners is extremely unreliable. With the caching scheme, this grasp was successfully found 100\% of the time, although the planning time is somewhat longer than the other grasp tasks.  
 
 % \singlespace
 % \begin{table}[t]
@@ -321,7 +325,7 @@ For the shampoo bottle, there are relatively fewer grasps that can succeed as co
 %\singlespace
 \begin{table}[t]
 \raggedleft
-\begin{minipage}[t]{0.5\columnwidth}
+\begin{minipage}[t]{0.5\textwidth}
 \begin{tabular}[t!]{ | c c c c | }
 \hline
 Grasp & Subject & Success & Time \\ \hline \hline
@@ -357,9 +361,8 @@ Grasp & Subject & Success & Time \\ \hline \hline
 & Mean & 100\% & 133\\\hline
 \end{tabular}
 \end{minipage}
-\hspace{.03\columnwidth}
-\raggedright
-\begin{minipage}[!t]{.4\columnwidth}
+\raggedleft
+\begin{minipage}[!t]{.4\textwidth}
 \begin{tabular}[t!]{ | c c c | }
 \hline
 Grasp & Success & Time \\ \hline \hline

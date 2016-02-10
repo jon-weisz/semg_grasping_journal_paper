@@ -114,14 +114,14 @@ Each subject was asked to grasp and lift three objects using an Emotiv Epoc as i
 The subject was asked to perform each facial gesture ten times each to train the Emotiv Epoc classifiers and choose reasonable parameters for the classifiers. For details, see \cite{Weisz2013} To train the subject to perform the task, the subject was asked to perform the task twice in the virtual environment without executing the final grasp on the arm. 
 
 \subsubsection{Results}
-The results of the experiments are reported in Table \ref{tab:results_2}. For each subject, we report the mean time to completion and fraction of successful attempts for each grasp. Time to completion is measured from the end of the object identification phase to the beginning of the execution phase, which is the time taken to plan the grasp. Overall, the average planning time was 104 seconds on the known objects and 86 seconds on the unknown object. The average success rate was 80\%, demonstrating that this system is effective in allowing the user to plan and execute a reasonable grasp for these objects.
+The results of the experiments are reported in Table \ref{tab:results_2}. For each subject, we report the mean time to completion and fraction of successful attempts for each grasp. Time to completion is measured from the end of the object identification phase to the beginning of the execution phase, which is the time taken to plan the grasp. Overall, the average planning time was 104 seconds on the known objects and 86 seconds on the unknown object. The mean success rate was 80\%, demonstrating that this system is effective in allowing the user to plan and execute a reasonable grasp for these objects.
 In these experiments, grasps from the side demonstrated significantly more robustness and lower planning times than grasps from above. The grasp database contained only one grasp from above for each of these objects, and this grasp was a fingertip grasp which may be sensitive to pose estimation error, which resulted in longer planning times while the subjects searched for a better grasp. In general, grasping roughly cylindrical objects such as the top of the detergent bottle from above is somewhat problematic for the BarrettHand due to its configuration and the low friction of its fingertips. In contrast, subjects were able to find a reasonable grasp from the side of the object among the grasps pulled directly from the database. The difference in planning times reflects the benefit of integrating the off-line planning phase.
 
 \begin{table}
 \centering
 \begin{tabular}{ | c | c | c | c | }
 \hline
-Grasp & Subject & Successes & Mean Time(s) \\ \hline \hline
+Grasp & Subject & Successes & Mean Time(s) \\ \hline 
 \multirow{5}{*}{Flashlight Side} & 1 & 3/3 & 125 \\ 
 & 2 & 3/3 & 53 \\ 
 & 3 & 2/3 & 103 \\
@@ -143,11 +143,11 @@ Grasp & Subject & Successes & Mean Time(s) \\ \hline \hline
 & 4 & 2/3 & 161 \\
 & 5 & 3/3 & 145 \\ \hline
 \multirow{5}{*}{Novel Bottle} & 1 & 3/5 & 132 \\
-&2 & 4/5 & 63 \\
-&3 & 4/5 & 95 \\
-&4 & 4/5 & 91 \\
-&5 & 4/5 & 50 \\ \hline 
-\end{tabular}
+&2 & 4/5 & 63\\
+&3 & 4/5 & 95\\
+&4 & 4/5 & 91\\
+&5 & 4/5 & 50\\
+\hline\end{tabular}
 \caption{Results from Experiment 2}
 \label{tab:results_2}
 \end{table}
