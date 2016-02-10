@@ -3,8 +3,8 @@
 \label{sec:pipeline_1}
 \begin{figure}
 	\centering
-	\includegraphics[width=.8\columnwidth]{ui_1.png}
-	\includegraphics[width=.8\columnwidth]{images_4/overview_pipeline.png}\\
+	\includegraphics[width=.95\columnwidth]{ui_1.png}\\
+	\includegraphics[width=.99\columnwidth]{images_4/overview_pipeline.png}\\
 	\caption{ \emph{Top:} An annotated screenshot of the prototype grasp planning user interface in GraspIt!. During online planning, the user is presented with an augmented reality view of the target object and three renderings of the hand interacting with the scene. The \emph{Planner Hand}, which is the most transparent hand, demonstrates the current state of the planner. The \emph{Input Hand} which is of intermediate transparency, is the hand through which the user directs the planning system. Here you can see the rotational guides which allow the user to visualize their available control directions. The \emph{Solution Hand}, which is fully opaque, demonstrates the best grasp currently available. This is the grasp which is closest to the approach direction that the \emph{Input Hand} is demonstrating and which also has the best grasp quality. \emph{Bottom:} The four phases of a basic grasp planning task. Breaking the task into phases allows customization of the user interface for each phase independently to make optimal use of low input bandwidth.}
 	\label{fig:overview_pipeline}
 \end{figure}
@@ -48,7 +48,7 @@ After initial experiences with \emph{System 1}, we noted several shortcomings in
 \subsection{Handling Novel Objects}
 \begin{figure}
 	\centering
-	\includegraphics[width=.6\columnwidth]{ui_2_flipped.png}
+	\includegraphics[width=.9\columnwidth]{ui_2_flipped.png}
 	\caption{\emph{System 2 Interface - Online Planner Phase}. The user interface contains three windows: The main window containing three labeled robot hands and the target object with the aligned point cloud, the pipeline guide window containing hints for the user to guide their interaction with each phase of the planner, and the grasp view window containing rendering of the ten best grasps found by the planner thus far.}
 	\label{fig:ui_2}
 \end{figure}
@@ -56,15 +56,15 @@ In order to handle objects that are not in the recognition system, we rely on th
 
 
 \begin{figure}
-\begin{subfigure}[b]{.45\columnwidth}
+\begin{subfigure}[t]{.45\columnwidth}
 \centering
-\includegraphics[width=.95\columnwidth]{alignment_1.png}
+\includegraphics[height=1.2in,width=.99\columnwidth]{alignment_1.png}
 \caption{Point clouds with RGB texture from the vision system. On the left is a flashlight along with its aligned point cloud in white. On the right is the point cloud of a juice bottle along with the best model from the vision system’s object database, a shampoo bottle, in white.}
 \label{fig:alignment_1}
 \end{subfigure}
-\begin{subfigure}[b]{.45\columnwidth}
+\begin{subfigure}[t]{.45\columnwidth}
 \centering
-\includegraphics[height=0.95\columnwidth]{unknown_objects_1.png}
+\includegraphics[height=1.2in,width=0.99\columnwidth]{unknown_objects_1.png}
 \caption{The two objects which are aligned on the right of the figure above. The shampoo bottle is in the object database. The juice bottle is not. The two are roughly the same width, and this shampoo bottle can be an appropriate proxy for the juice bottle in the planner.}
 \label{fig:unknown_objects_1}
 \end{subfigure}
@@ -80,12 +80,12 @@ Using a grasp database also allows us to manually design good grasps for particu
 To generate the grasp database, we ran the Eigengrasp Planner off-line six times for twenty minutes each with the approach direction of the palm aligned to the major axes in the positive and negative directions, using the best grasp from each direction in the database. If there were fewer than ten grasps in the database, including manually inserted grasps, then the highest quality grasps were selected from among all of the available grasps until a full ten are available. 
 
 \subsection{Grasping Pipeline}
-\begin{figure}[th!]
+\begin{figure*}[ht!]
 	\centering
-	\includegraphics[width=1\columnwidth]{pipeline_2.png}
+	\includegraphics[width=1.7\columnwidth]{pipeline_2.png}
 	\caption{The phases of the modified grasping pipeline incorporating more control over the vision system and the grasp database. If the user chooses the \emph{nth} grasp from the database, \emph{n+4} user inputs are required. If none of the grasps are suitable, the online planner can be invoked with a few simple inputs to refine one of the grasps further.}
 	\label{fig:pipeline_2}
-\end{figure}
+\end{figure*}
 \label{sec:pipline_2}
 These improvements result in a more flexible, but complex grasping pipeline. In this pipeline, there are three additional phases before the  \emph{planning-review-execute} pipeline outlined previously in which the augmented visualizations are used to provide the user with extra flexibility in initializing the planner. These phases allow the user to first control the vision systems object detection and localization, then review the set of available grasps retrieved from the pre-planned database, and finally to chose whether to activate the online refinement or simply execute the retrieved grasp. The phases of the pipeline and transitions between them are outlined as a state machine in Figure \ref{fig:pipeline_2}. Notice that these modifications create two possible paths to the final phase of grasp execution, trading off complexity for potential speed improvements. 
 
@@ -119,7 +119,7 @@ In these experiments, grasps from the side demonstrated significantly more robus
 
 \begin{table}
 \centering
-\begin{tabular}{ | c | c | c | c | }
+\begin{tabular}{ | l | c | c | c | }
 \hline
 Grasp & Subject & Successes & Mean Time(s) \\ \hline 
 \multirow{5}{*}{Flashlight Side} & 1 & 3/3 & 125 \\ 
@@ -132,12 +132,12 @@ Grasp & Subject & Successes & Mean Time(s) \\ \hline
 & 3 & 2/3 & 96 \\
 & 4 & 3/3 & 93 \\
 & 5 & 2/3 & 125 \\ \hline
-\multirow{5}{*}{Detergent Bottle Side} & 1 & 3/3 & 75 \\ 
+\multirow{5}{*}{\begin{minipage}{.75in}Detergent Bottle Side\end{minipage}} & 1 & 3/3 & 75 \\ 
 & 2 & 3/3 & 57 \\ 
 & 3 & 3/3 & 106 \\
 & 4 & 2/3 & 82 \\
 & 5 & 3/3 & 75 \\ \hline
-\multirow{5}{*}{Detergent Bottle Top} & 1 & 1/3 & 151 \\ 
+\multirow{5}{*}{\begin{minipage}{.75in}Detergent Bottle Top\end{minipage}} & 1 & 1/3 & 151 \\ 
 & 2 & 2/3 & 114 \\ 
 & 3 & 2/3 & 142\\
 & 4 & 2/3 & 161 \\

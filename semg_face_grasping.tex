@@ -16,7 +16,7 @@ The total powers of two different frequency bands of the single sEMG signal were
 
 \begin{equation}
 \centering
-\left[ \begin{array}{c} x\\ y \end{array} \right] = \left[\begin{array}{c c} 1.75 gain_1 & -.75 gain_2 \\ -.75gain_{1} &  1.75gain_{2}\end{array} \right]\left[\begin{array}{c}ChannelPower_1 \\ ChannelPower_2\end{array}\right]
+\left[ \begin{array}{c} x\\ y \end{array} \right] = \left[\begin{array}{c c} 1.75 gain_1 & -.75 gain_2 \\ -.75gain_{1} &  1.75gain_{2}\end{array} \right]\left[\begin{array}{c}Channel_1 \\ Channel_2\end{array}\right]
 	\label{eq:equation_1}
 \end{equation}
 
@@ -39,12 +39,12 @@ To send signals to the grasping system, the user controls a cursor to hit one of
 
 We map these inputs to following a similar strategy to that used for each facial gesture in \emph{System 2}. For the red and green inputs, denoted input 1 and input 2, the input is activated a single time when the user returns to rest. For inputs 3 and 4, the magenta and black targets respectively, the activation is sent continuously until the user exits the rest area again. This allows the user to exert near continuous control over the approach direction. 
 
-\begin{figure}
+\begin{figure*}
 \centering
 \includegraphics[width=.99\textwidth]{semg_interface_blank.png}
 \caption{The sEMG Interface: (a) The user interface is composed of 4 targets overlaid on the grasping scene. Target 1 usually signals acceptance of the current option. Target 2 toggles the next option. Targets 3 and 4 provide input to the planner.(b) Hitting one particular target changes the color of the cursor to reflect the selection and makes the other targets unavailable. (c) If the user does not return to the rest area after a few seconds, the selection times out and is deselected and all targets become available again for selection. }
 \label{fig:semg_ui_blank}
-\end{figure}
+\end{figure*}
 
 
 \subsection{Handling Cluttered Scenes}
@@ -70,14 +70,13 @@ We placed targets 1 and 2 in opposite corners of the screen because these inputs
 
 \begin{figure}
 \centering
-\begin{subfigure}[t]{.47\columnwidth}
+\begin{subfigure}[t]{\columnwidth}
 \centering
 \includegraphics[width=.99\columnwidth]{ui_3_a.png}
 \caption{\emph{System 3 Interface - Object Selection Phase.} The subject is able to see the planning scene in the main UI window. The window on the bottom tells the user the current phase and what the green and red inputs will do in this phase. In this phase, the subject sees the point cloud and hits the red target until the object they wish to grasp is highlighted in green. Then they hit the green target to proceed to the next phase.}
 \label{fig:semg_ui_a}
 \end{subfigure}
-\hspace{1mm}
-\begin{subfigure}[t]{.47\columnwidth}
+\begin{subfigure}[t]{\columnwidth}
 \centering
 \includegraphics[width=.99\columnwidth]{ui_3_b.png}
 \caption{\emph{System 3 Interface - Initial Review Phase.} After the subject selects the object, the Grasp View pane on the right is populated with a set of grasps from a database. Grasps that are reachable appear on a green background, while unreachable grasps are red. The topmost grasp in the grasp view window is the currently selected grasp, which is rendered in the planning scene with the planner hand.}
@@ -132,18 +131,18 @@ To familiarize the subject with the interface, we demonstrated the pipeline two 
 The results of the experiment are shown in Table \ref{tab:semg_table_1}. The subject was able to grasp the objects successfully on all three attempts. On average, it took the subject 694 seconds to grasp each object, including about 60 seconds for the vision system to detect the objects in the scene. There were an average of 25 timeouts, and 1 mistakenly selected targets per attempt. Timeouts are an expected part of this interface, which allows the user to re-select their intended target if the initially selected target is incorrect. Occasional mistaken selections are also expected, and the pipeline is designed to be robust to these errors, allowing the user to go back to the previous step where necessary to correct mistakes. Several mistakes in a row are necessary to actually realize mistaken actions on the robot.
 
 
-\begin{table}
+\begin{table*}[ht!]
 \centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-Grasp & Time (s) & \#Inputs & \#Timeouts & Mistaken Selections \\ \hline
+Grasp & Time(s) & \#Inputs & \#Timeouts & \begin{minipage}{.6in}\centering Mistaken Selections\end{minipage} \\ \hline
 Detergent 1 & 564 & 14 & 14 & 2\\ \hline
 Detergent 2 & 609 & 9 & 50 & 0\\ \hline
 Shaving Gel & 910 & 12 & 11 & 1\\ \hline
 \end{tabular}
 \caption{sEMG Experiment 1 Results}
 \label{tab:semg_table_1}
-\end{table}
+\end{table*}
 
 \subsubsection{Discussion}
 These results, while promising from the perspective that a single experiment participant was able to understand and utilize the system fairly quickly, demonstrated a number of shortcomings with our system. First, the user's control over the sEMG device was not very accurate, yielding many false initial selections that had to be timed out. This may be because the user was trained to use the PA muscle, which is smaller and has more variable performance. Time restraints did not allow for extensive training of the subject, and so when switching from training to task, the additional cognitive load appears to have degraded performance. A second problem was that the online reachability tester is fairly slow using the CBiRRT planner, and thus new available grasps appeared slowly. This caused relatively few reasonable grasps to be available, and so the user had more trouble because he had to iterate through more grasps which were not reflective of their intent while looking for a reasonable one. While indicating poor regions for grasping by shading the display hand was somewhat effective at helping the user avoid long waits in regions that were doomed to failure, it was not sufficient near border regions where grasps were possible but unlikely because of occlusions. 
@@ -181,14 +180,13 @@ In this system, the UI window is adaptive, providing more visual cues to the use
 
 \begin{figure}
 \centering
-\begin{subfigure}[t]{.48\columnwidth}
+\begin{subfigure}[t]{\columnwidth}
 \centering
 \includegraphics[height=1.7in,width=.99\columnwidth]{images_4/object_recognition_state.png}
 \caption{\emph{System 4 - Object Recognition and Selection State.} The graspable objects in the seen are highlighted in red and green. Sending input 1 selects the green object as the target, input 2 cycles to the next object, and input 3 triggers the object recognition system to refresh.   The background UI area is rendered in red while the recognition is still processing.}
 \label{fig:ui-4-object-selection}
 \end{subfigure}
-\hspace{1mm}
-\begin{subfigure}[t]{.48\columnwidth}
+\begin{subfigure}[t]{\columnwidth}
 \centering
 \includegraphics[height=1.7in,width=.99\columnwidth]{images_4/matlab_ui.png}
 \caption{\emph{System 4 - Grasp Refinement State.} The buttons on the right function as both guides for the result of hitting the color coded input options that will be presented to the use, as well as buttons that the user and experimenter use during the training stage. The sEMG is interface overlaid on the planning scene with the selected target highlighted in green.}
@@ -219,7 +217,7 @@ To validate these design decisions, we tested our pipeline on 5 healthy subjects
 \includegraphics[width=.49\textwidth]{images_4/semg_clutter_grasp.png}
 \hspace{1mm}
 \includegraphics[width=.49\textwidth,trim={30cm 40cm 20cm 20cm},clip=true]{user_semg_2.jpg}
-\caption{\emph{Left:} A typical grasp of the shampoo bottle from the side in the cluttered scene. Note that the hand is just able to fit between the other objects to grasp the desired target. Note that the ability to plan this grasp in such a restricted environment is an indication that this system is very successful at handling the cluttered scene. \emph{Right:} The sEMG system electrodes. In these experiments, we placed the electrodes behind the ear of the subject to measure contractions of the PA muscle. We stabilize the electrodes by wrapping the head of the electrodes in Silly Putty silicone putty.}
+\caption{\emph{Top:} A typical grasp of the shampoo bottle from the side in the cluttered scene. Note that the hand is just able to fit between the other objects to grasp the desired target. Note that the ability to plan this grasp in such a restricted environment is an indication that this system is very successful at handling the cluttered scene. \emph{Bottom:} The sEMG system electrodes. In these experiments, we placed the electrodes behind the ear of the subject to measure contractions of the PA muscle. We stabilize the electrodes by wrapping the head of the electrodes in Silly Putty silicone putty.}
 
 \label{fig:silly-putty}
 \end{figure}
@@ -323,7 +321,7 @@ For the shampoo bottle, there are relatively fewer grasps that can succeed as co
 % \doublespace
 
 %\singlespace
-\begin{table}[t]
+\begin{table*}[ht!]
 \raggedleft
 \begin{minipage}[t]{0.5\textwidth}
 \begin{tabular}[t!]{ | c c c c | }
@@ -400,7 +398,7 @@ Grasp & Success & Time \\ \hline \hline
 \end{minipage}
 \caption{Results from Experiment 3. On average, the subjects were successful in grasping 82\% of the objects within 92 seconds of the first time their cursor left rest area.}
 \label{tab:results_3}
-\end{table}
+\end{table*}
 %\doublespace
 
 \section{Conclusions}
