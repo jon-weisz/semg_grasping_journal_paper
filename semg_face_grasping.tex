@@ -1,4 +1,4 @@
-\section*{System 3: Novel sEMG Device with Impaired User Study}
+\section{System 3: Novel sEMG Device with Impaired User Study}
 \setcounter{subsection}{0}
 \renewcommand*{\theHsection}{chX.\the\value{section}}
 \subsection{Surface EMG Recording}
@@ -147,7 +147,7 @@ Shaving Gel & 910 & 12 & 11 & 1\\ \hline
 \subsubsection{Discussion}
 These results, while promising from the perspective that a single experiment participant was able to understand and utilize the system fairly quickly, demonstrated a number of shortcomings with our system. First, the user's control over the sEMG device was not very accurate, yielding many false initial selections that had to be timed out. This may be because the user was trained to use the PA muscle, which is smaller and has more variable performance. Time restraints did not allow for extensive training of the subject, and so when switching from training to task, the additional cognitive load appears to have degraded performance. A second problem was that the online reachability tester is fairly slow using the CBiRRT planner, and thus new available grasps appeared slowly. This caused relatively few reasonable grasps to be available, and so the user had more trouble because he had to iterate through more grasps which were not reflective of their intent while looking for a reasonable one. While indicating poor regions for grasping by shading the display hand was somewhat effective at helping the user avoid long waits in regions that were doomed to failure, it was not sufficient near border regions where grasps were possible but unlikely because of occlusions. 
 
-\section*{System 4: A practical assistive grasping platform}
+\section{System 4: A practical assistive grasping platform}
 \setcounter{subsection}{0}
 \renewcommand*{\theHsection}{chX.\the\value{section}}
 Our initial results showed enough efficacy of this system that we developed a second prototype using a smaller, lower weight robotic arm, the Kinova Mico. Our initial prototype used an industrial arm, which is extremely accurate and has a large workspace, but is too heavy and expensive to be part of an assistive robotic setup. Additionally, this large, high precision arm does not reflect the performance characteristics of an arm which is affordable and practical for a robotic wheel chair. The Kinova Mico arm is more suitable for mounting on a wheel chair. 
@@ -194,7 +194,7 @@ In this system, the UI window is adaptive, providing more visual cues to the use
 \end{subfigure}
 \end{figure}
 
-\subsection*{System 4 Pipeline}
+\subsection{System 4 Pipeline}
 The updated pipeline is slightly shorter and makes more varied use of inputs 3 and 4. 
 
 \emph{Object Recognition and Selection:} This phase combines the first two phases of \emph{System 3}. To select an object as a target, the user sends input 2. To cycle to the next object in the recognized object list the user sends input 3, which will continuously iterate through the grasps until the user leaves the rest area. To rerun the object recognition system the user sends input 1. While the recognition system is still running, the whole screen is highlighted in red and it is not possible to proceed to the next phase until the recognition finishes. 

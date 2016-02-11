@@ -1,4 +1,4 @@
-\section*{System 1: An HRI Grasping Platform Prototype}
+\section{System 1: An HRI Grasping Platform Prototype}
 \setcounter{subsection}{0}
 \label{sec:pipeline_1}
 \begin{figure}
@@ -40,7 +40,7 @@ Planning for the motion of the arm is done in OpenRAVE using a bidirectional ran
 \subsection{Evaluation and Shortcomings}
 Using this grasping platform, the experimenters were able to develop an interface for the Eigengrasp Planner and access it through a noisy, EMG based interface. However, we found that users with less experience and patience were not able to interpret the information in the grasp planning scene. In order to run user experiments, we needed a more informative UI and some faster planning options.
 
-\section*{System 2: Adding Visual Feedback}
+\section{System 2: Adding Visual Feedback}
 \setcounter{subsection}{0}
 \renewcommand*{\theHsection}{chX.\the\value{section}}
 After initial experiences with \emph{System 1}, we noted several shortcomings in the design of the user interface. With additional visual cues, we were able to add several features and allow non-expert users to successfully navigate the grasping pipeline. We added elements to the UI that are illustrative of the current state of the planner and the available options at each phase of the planner (see Figure \ref{fig:ui_2}). Additionally, this extended UI gives feedback about the position of localized object with respect to the sensed environment, allowing the user to interact directly with the localization system. With these modifications, we also enable the user to grasp "novel" objects that are not in the object database and use our pre-planned grasp database. 
