@@ -1,4 +1,4 @@
-\section{System 1: An HRI Grasping Platform Prototype}
+\section{System 1: An HRI Grasping Platform}
 \setcounter{subsection}{0}
 \label{sec:pipeline_1}
 \begin{figure}
@@ -9,7 +9,7 @@
 	\label{fig:overview_pipeline}
 \end{figure}
 \renewcommand*{\theHsection}{chX.\the\value{section}}
-In \cite{Weisz2012c}, we developed a prototype BCI enabled grasping platform through which we outlined a general strategy for an online assistive grasping system. 
+In \cite{Weisz2013}, we developed a BCI enabled grasping platform through which we outlined a general strategy for an online assistive grasping system, based on an earlier system we developed in \cite{Weisz2012c}.
 The grasping task can be decomposed into a four subtasks: Target object identification and localization, generation of grasp plans, picking an optimal plan, and executing the plan on the robot. Each subtask can be fulfilled by different modules which benefit from different user interaction strategies. By decomposing the tasks into explicit phases of a pipelined process, as in Figure \ref{fig:overview_pipeline}, we can optimize user's interaction for each phase to make the best use of input modalities with limited bandwidth while guiding the grasping platform. 
 Although fully automated approaches for each of these subtasks have been the subject of extensive and ongoing research, integrating user input to create a shared-control environment that uses as much input as the user is able to supply is still a relatively unexplored field.
 
@@ -18,9 +18,8 @@ Although fully automated approaches for each of these subtasks have been the sub
 Putting the human in the loop when planning and executing the grasp in real-time fundamentally changes the nature of the problem as compared to a fully automated system. The key challenge becomes conveying information to the user effectively about the state of the system and then using the low bandwidth information gained from the user efficiently. This requires careful design of the interfaces provided to the user and of the control scheme for inferring intent from the user's input. Additionally, in order to present the user with reasonable grasping options, we need to extend the existing grasp stability analysis to deal with the most common problem that arises in unstructured environments, object localization errors due to sensor noise (See \cite{Weisz2012} for an analysis of the effect of sensor noise on the Eigengrasp Planner). 
 
 \subsection{Prototype Design Components}
-\subsubsection{Hardware Components}The manipulator arm for the initial prototype was composed of an industrial St\"{a}ubli TX60L robotic arm and a BarrettHand gripper. The object localization system was based on point clouds captured by a Microsoft Kinect depth camera. We sought an input device that might be representative of what could be achieved by a low cost BCI device in order to evaluate a user interface under realistic conditions of error and throughput. The Emotiv Epoc was chosen because of the convenience of its wireless form factor and relatively low cost. 
+The manipulator arm for the initial prototype was composed of an industrial St\"{a}ubli TX60L robotic arm and a BarrettHand gripper. The object localization system was based on point clouds captured by a Microsoft Kinect depth camera. We sought an input device that might be representative of what could be achieved by a low cost BCI device in order to evaluate a user interface under realistic conditions of error and throughput. The Emotiv Epoc was chosen because of the convenience of its wireless form factor and relatively low cost. 
 
-\subsubsection{EMG Input Processing}
 The Emotiv Epoc comes with three built-in signal processing modalities designed to detect emotional affect, facial movement, and EEG evoked responses. Combining these classifiers, we were able to derive a training paradigm for detection of four facial gestures robustly. For details see \cite{Weisz2013}.
 
 \subsection{User Interface}
@@ -35,25 +34,26 @@ Planning for the motion of the arm is done in OpenRAVE using a bidirectional ran
 
 \subsubsection{Recognition System}
 \label{sec:rec_system}
- We use the \emph{Model Ransac} method described in \cite{EfficientModelRansac} to identify and localize the target object in the scene. This method generates features from pairs of oriented points on the surface of the object. Prospective models are processed off-line and put into a hash table. Features are sampled from the sensor data and tested for collision in the hash table. If a sufficient number of collisions occurs with points on the same model, a variant of RANSAC is used to test the hypothesis that a set of points in the sensor data corresponds to a particular model at a particular location. This method has demonstrated good robustness and is extensible to multi-object scenes. 
-
-\subsection{Evaluation and Shortcomings}
-Using this grasping platform, the experimenters were able to develop an interface for the Eigengrasp Planner and access it through a noisy, EMG based interface. However, we found that users with less experience and patience were not able to interpret the information in the grasp planning scene. In order to run user experiments, we needed a more informative UI and some faster planning options.
-
-\section{System 2: Adding Visual Feedback}
-\setcounter{subsection}{0}
-\renewcommand*{\theHsection}{chX.\the\value{section}}
-After initial experiences with \emph{System 1}, we noted several shortcomings in the design of the user interface. With additional visual cues, we were able to add several features and allow non-expert users to successfully navigate the grasping pipeline. We added elements to the UI that are illustrative of the current state of the planner and the available options at each phase of the planner (see Figure \ref{fig:ui_2}). Additionally, this extended UI gives feedback about the position of localized object with respect to the sensed environment, allowing the user to interact directly with the localization system. With these modifications, we also enable the user to grasp "novel" objects that are not in the object database and use our pre-planned grasp database. 
-
-\subsection{Handling Novel Objects}
 \begin{figure}
 	\centering
 	\includegraphics[width=.9\columnwidth]{ui_2_flipped.png}
 	\caption{\emph{System 2 Interface - Online Planner Phase}. The user interface contains three windows: The main window containing three labeled robot hands and the target object with the aligned point cloud, the pipeline guide window containing hints for the user to guide their interaction with each phase of the planner, and the grasp view window containing rendering of the ten best grasps found by the planner thus far.}
 	\label{fig:ui_2}
 \end{figure}
-In order to handle objects that are not in the recognition system, we rely on the stochastic nature of the planning and recognition system and the discernment of the user. When automated systems fail, the user can reject the proposed solutions and wait for another. The parameters of the object recognition system can be tuned to recognize objects with similar parts by increasing the allowed error in the hypothesis testing stage of RANSAC. An example of this alignment can be seen in Figure \ref{fig:alignment_1}. In order to allow the user to discern how well the detected object aligns to the true geometry of the novel object in the scene, the UI was modified to include a down-sampled point cloud from the depth camera. The user is responsible for rerunning the vision system until they see a reasonable alignment of the sensor data and detected model. This interaction also comes into play in the grasp planning phase, in which we rely on the user to reject grasps that may seem appropriate for the detected model but do not fit the actual unknown model well. 
+ We use the \emph{Model Ransac} method described in \cite{EfficientModelRansac} to identify and localize the target object in the scene. This method generates features from pairs of oriented points on the surface of the object. Prospective models are processed off-line and put into a feature database for testing model hypotheses.  Features are sampled from the sensor data matches in the database. If a sufficient number of collisions occurs with points on the same model, a variant of RANSAC is used to test the hypothesis that a set of points in the sensor data corresponds to a particular model at a particular location. This method has demonstrated good robustness and is extensible to multi-object scenes. 
+\emph{Handling Novel Objects:} In order to handle objects that are not in the recognition system, we rely on the stochastic nature of the planning and recognition system and the discernment of the user. When automated systems fail, the user can reject the proposed solutions and wait for another. The parameters of the object recognition system can be tuned to recognize objects with similar parts by increasing the allowed error in the hypothesis testing stage of RANSAC. An example of this alignment can be seen in Figure \ref{fig:alignment_1}. In order to allow the user to discern how well the detected object aligns to the true geometry of the novel object in the scene, the UI was modified to include a down-sampled point cloud from the depth camera. The user is responsible for rerunning the vision system until they see a reasonable alignment of the sensor data and detected model. This interaction also comes into play in the grasp planning phase, in which we rely on the user to reject grasps that may seem appropriate for the detected model but do not fit the actual unknown model well. 
 
+
+
+%\subsection{Evaluation and Shortcomings}
+%Using this grasping platform, the experimenters were able to develop an interface for the Eigengrasp Planner and access it through a %noisy, EMG based interface. However, we found that users with less experience and patience were not able to interpret the information %in the grasp planning scene. In order to run user experiments, we needed a more informative UI and some faster planning options.
+
+%\section{System 2: Adding Visual Feedback}
+%\setcounter{subsection}{0}
+%\renewcommand*{\theHsection}{chX.\the\value{section}}
+% In this initial experiment, we found that users with less experience and patience were not able to interpret the information in the grasp planning scene. In order to run user experiments, we needed a more informative UI and some faster planning options. 
+%
+% After initial experiences with \emph{System 1}, we noted several shortcomings in the design of the user interface. With additional visual cues, we were able to add several features and allow non-expert users to successfully navigate the grasping pipeline. We added elements to the UI that are illustrative of the current state of the planner and the available options at each phase of the planner (see Figure \ref{fig:ui_2}). Additionally, this extended UI gives feedback about the position of localized object with respect to the sensed environment, allowing the user to interact directly with the localization system. With these modifications, we also enable the user to grasp "novel" objects that are not in the object database and use our pre-planned grasp database. 
 
 \begin{figure}
 \begin{subfigure}[t]{.45\columnwidth}
@@ -87,7 +87,7 @@ To generate the grasp database, we ran the Eigengrasp Planner off-line six times
 	\label{fig:pipeline_2}
 \end{figure*}
 \label{sec:pipline_2}
-These improvements result in a more flexible, but complex grasping pipeline. In this pipeline, there are three additional phases before the  \emph{planning-review-execute} pipeline outlined previously in which the augmented visualizations are used to provide the user with extra flexibility in initializing the planner. These phases allow the user to first control the vision systems object detection and localization, then review the set of available grasps retrieved from the pre-planned database, and finally to chose whether to activate the online refinement or simply execute the retrieved grasp. The phases of the pipeline and transitions between them are outlined as a state machine in Figure \ref{fig:pipeline_2}. Notice that these modifications create two possible paths to the final phase of grasp execution, trading off complexity for potential speed improvements. 
+Figure \ref{fig:pipeline_2} includes a more detailed description of the pipe, incorporating three additional phases before the  \emph{planning-review-execute} pipeline outlined previously in which the augmented visualizations are used to provide the user with extra flexibility in initializing the planner. These phases allow the user to first control the vision systems object detection and localization, then review the set of available grasps retrieved from the pre-planned database, and finally to chose whether to activate the online refinement or simply execute the retrieved grasp. The phases of the pipeline and transitions between them are outlined as a state machine in Figure \ref{fig:pipeline_2}. In this pipeline,  there are two possible paths to the final phase of grasp execution, trading off complexity for potential speed improvements. 
 
 To help the user manage this complexity, we added a "Guide Window" that displays the transition table for the current phase, as shown in Figure \ref{fig:ui_2}. Throughout the pipeline, two of the facial gestures are associated with transitions between phases of the pipeline, while the other two provide direction to the online planner. In the "Guide Window", the left side of the window shows the current phase in yellow, the center of the window shows the result of the Gesture 1 transition in red, and the right side of the window shows the result of the Gesture 2 transition in green. 
 
@@ -148,7 +148,7 @@ Grasp & Subject & Successes & Mean Time(s) \\ \hline
 &4 & 4/5 & 91\\
 &5 & 4/5 & 50\\
 \hline\end{tabular}
-\caption{Results from Experiment 2}
+\caption{Results using System 1: Subjects using this system succesfully grasped the target object in 80\% of trials, with an average grasping time of 104 seconds. }
 \label{tab:results_2}
 \end{table}
 
