@@ -1,15 +1,15 @@
 \section{System 2: Novel sEMG Device with Impaired User Study}
 \setcounter{subsection}{0}
-\renewcommand*{\theHsection}{chX.\the\value{section}}
+%\renewcommand*{\theHsection}{chX.\the\value{section}}
 \subsection{Surface EMG Recording}
 \label{sec:semg_hardware}
-We found a number of practical issues with the Emotiv Epoc as an input device. The two most important were the impracticality of the form bulky factor of the device and the difficulty of configuring and maintaining its electrodes to work correctly. To address some of these issues, we adopted a novel input device under development at UC Davis which is designed to be used by severely impaired individuals. This device has an extremely noninvasive profile, requiring only a single sEMG recording site behind the ear. 
+ To address some of the issues we experienced using the Epoc, we adopted a novel input device under development at UC Davis which is designed to be used by severely impaired individuals. This device has an extremely noninvasive profile, requiring only a single sEMG recording site behind the ear. 
 
 The muscles behind the ear are are innervated by nerves that come directly from the brain stem, without ever entering the spine. Even individuals with the most severe spinal cord paralysis can still access these muscles. Although some individuals are able to independently move their ears, we have found that even individuals that cannot move their ears can learn to activate the muscles in that region without achieving overt motion when they are given visual feedback. This activation produces signals that can be detected by electrodes mounted on the surface of the skin. 
 
 A series of works including \cite{joshisensor,JoshiTwoDimCursor,JoshiEPLPilot} have shown that the input device can record two simultaneous channels from a single recording site. This is achieved by training the subject to modulate the activation of the muscles near the recording site so that they can voluntarily control the power in two separate frequency bands. These two independent degrees of control are used to drive a cursor which selects options by hitting targets on a screen. In those works, the authors produced different user interfaces such as a UI for allowing a disabled individual to control a television. 
 
-The general methodology is outlined in Figure \ref{fig:semg_processing_pipeline}. The single sEMG signal is first processed through a 60 Hz noise filter to remove noise from the AC power supply. It is then run through two different band pass Buttersworth filters to extract two separate signals. The bands are then linearly combined to compute the \emph{x} and \emph{y} cursor positions. This linear combination is necessary to generate independent control channels since there are no perfect band pass filters, and the subject may not be able to completely the frequency bands. 
+The general methodology is outlined in Figure \ref{fig:semg_processing_pipeline}. The single sEMG signal is first processed through a 60 Hz noise filter to remove noise from the AC power supply. It is then run through two different band pass Buttersworth filters to extract two separate signals. The bands are then linearly combined to compute the \emph{x} and \emph{y} cursor positions. This linear combination is necessary to generate independent control channels since there are no perfect band pass filters, and the subject may not be able to completely isolate the frequency bands. 
 
 The total powers of two different frequency bands of the single sEMG signal were computed using two band pass filters for 80-100 Hz (Band 1) and 130-150 Hz (Band 2). These bands were selected ad-hoc, based on previous experience. The output of the two filters produced comparable powers during maximum voluntary contraction. The filter outputs were combined linearly as described in Equation \ref{eq:equation_1}. 
 
@@ -37,7 +37,7 @@ To adapt this system to our use, we added some additional smoothing steps simila
 \subsection{sEMG GUI}
 To send signals to the grasping system, the user controls a cursor to hit one of four targets, as illustrated in Figure \ref{fig:semg_ui_blank}. Each target represents a different input options. During grasp planning, they are overlaid on the augmented reality display. The user begins in a rest area and moves the cursor to one of the targets. When the target is hit, the cursor changes colors to reflect the user's selection. The user returns the cursor to the rest area, at which point the input option selected is activated. After a selection, the other targets are disabled for four seconds. If an unintended target is selected, the user can force the selection to \emph{timeout} by avoiding rest for these four seconds, canceling the selection. 
 
-We map these inputs to following a similar strategy to that used for each facial gesture in \emph{System 1}. For the red and green inputs, denoted input 1 and input 2, the input is activated a single time when the user returns to rest. For inputs 3 and 4, the magenta and black targets respectively, the activation is sent continuously until the user exits the rest area again. This allows the user to exert near continuous control over the approach direction. 
+We map these inputs to following a similar strategy to that used for each facial gesture in \emph{System 1}. For the red and green inputs, denoted input 1 and input 2, the input is activated a single time when the user returns to rest. For inputs 3 and 4, the magenta and black targets respectively, the activation is sent continuously until the user exits the rest area again. This allows the user to exert near continuous control over the hand's approach direction. 
 
 \begin{figure*}
 \centering
@@ -50,7 +50,7 @@ We map these inputs to following a similar strategy to that used for each facial
 \subsection{Handling Cluttered Scenes}
 In addition to an improved input device, we extended our grasping system to handle more realistic scenes, including some amount of clutter. In this work, we will define ``clutter'' as objects being in close enough proximity that many of the grasps for the objects may collide with other nearby objects, but that they are not actually in contact with one another. We did not handle the problem of singulation, which is a specialized manipulation designed to separate objects which are too close together for the fingers to surround the object without colliding with other objects. As such, we tested grasp planning scenes where there was at least 5cm of empty space between each object. 
 
-Handling cluttered scenes brings up a number of challenges. First, it slows down the online planning phase. There are many fewer possible grasps and the obstacles divide the state space into discontinuous regions, which creates more local minima in the value of the quality function, which slows down convergence. Additionally, adding more geometry to the planning scene slows down collision detection, which is a bottleneck for grasp planning. Second, many of the grasps produced by the planner may not have a reachable path to grasp. In our previous systems, we made the optimistic assumption that most grasps were reachable, but in clutter this is no longer a valid assumption. Third, with more objects in the scene, there is more visual clutter and it is more difficult to produce a useful visualization.
+Handling cluttered scenes brings up a number of challenges. First, it slows down the online planning phase. There are many fewer possible grasps and the obstacles divide the state space into discontinuous regions, which creates more local minima in the value of the quality function, which slows down convergence. Additionally, adding more geometry to the planning scene slows down collision detection, which is a bottleneck for grasp planning. Second, many of the grasps produced by the planner may not have a reachable path to grasp. In \emph{System 1}, we made the optimistic assumption that most grasps were reachable, but in clutter this is no longer a valid assumption. Third, with more objects in the scene, there is more visual clutter and it is more difficult to produce a useful visualization.
 
 In order to address the first two issues, we implemented an online reachability test which the user can clearly interpret. When good grasp candidates are found, \emph{System 3} checks that an entire valid trajectory can be generated using the CBiRRT planner described in \cite{berenson-09}. Unreachable grasps are placed at the end of the list of grasps and colored red in the grasp preview window (see Figure \ref{fig:semg_ui_b}). This allows the user to see that progress is being made even when no new reachable grasps are being generated.
 
@@ -58,12 +58,10 @@ We maintain the list of unreachable grasps so that we can reject nearby grasps w
 
 The results of the reachability test are also used to train a nearest neighbors classifier. When the user moves the demonstration hand, we find the five grasps for which the normal of the palm of the hand is closest to the normal of the demonstrated pose. If at least 50\% of these grasps are unreachable, we designate the current demonstration pose as being in an unreachable region, which is indicated to the user by highlighting the demonstration hand in the planner interface in red. These measures are crucial for a naive user that is not familiar with the kinematics of the robot arm and may not have the intuition that the region they are trying to grasp from is not within the robot's workspace.
 
-\subsection{GUI Modifications For Clutter and sEMG Interface}
+\subsection{GUI Modifications For sEMG Interface}
  A number of changes were made to the user interface to accommodate both the added visual complexity of overlaying the sEMG control interface on the planning scene and the added difficulty of interpreting the multi-object scene. We redesigned the UI with a cleaner look and feel that implements a number of new features. 
 
-The \emph{System 2} interface layout is outlined in Figure \ref{fig:semg_ui_a}, which illustrates the UI presented during the object selection phase. First, the point cloud displayed in the scene has been upgraded to a higher resolution, color point cloud. This change allows the user to discern the target object more effectively in the cluttered scene. It also allows the user to exercise more judgment in interpreting the scene, since they may not be physically present to observe it first hand. Second, we display only three grasp options instead of 10 to reduce the visual clutter. This also allows us to enlarge the presentation of the grasp so that the user can more easily discern how the hand may interact with the rest of the objects in the scene. Third, we moved the grasp preview window to the side of the screen and modified the way that the UI generates the view to share the aspect ratio and alignment of the depth camera so that all detected objects are visible and that the user's intuition is unimpeded by deformations due to the aspect ratio. Fourth, we removed all of the window decorations and grasp metric displays, as the subject is not expected to be able to interpret them correctly. Overall, this provides a much cleaner, streamlined view more suitable for non-expert users. 
-
-Unfortunately, additional visual clutter is introduced by the addition of the sEMG user interface. This interface is rendered as a translucent layer on top of the grasp planning scene, allowing the subject to see both at the same time. The scene is chosen so that the relevant objects are centered in the scene. While the user is not actively using the cursor it remains in the lower left of the screen and the main grasp planning scene remains unoccluded. 
+The \emph{System 2} interface layout is outlined in Figure \ref{fig:semg_ui_a}, which illustrates the UI presented during the object selection phase. First, the point cloud displayed in the scene has been upgraded to a higher resolution, color point cloud. This change allows the user to discern the target object more effectively in the cluttered scene. It also allows the user to exercise more judgment in interpreting the scene, since they may not be physically present to observe it first hand. Second, we display only three grasp options instead of 10 to reduce the visual clutter. This also allows us to enlarge the presentation of the grasp so that the user can more easily discern how the hand may interact with the rest of the objects in the scene. Third, we moved the grasp preview window to the side of the screen and modified the way that the UI generates the view to share the aspect ratio and alignment of the depth camera so that all detected objects are visible and that the user's intuition is unimpeded by deformations due to the aspect ratio. Fourth, we removed all of the window decorations and grasp metric displays, as the subject is not expected to be able to interpret them correctly. Overall, this provides a much cleaner, streamlined view more suitable for non-expert users.  The sEMG interface is rendered as a translucent layer on top of the grasp planning scene, allowing the subject to see both at the same time. The scene is chosen so that the relevant objects are centered in the scene. While the user is not actively using the cursor it remains in the lower left of the screen and the main grasp planning scene remains unoccluded. 
 
 We placed targets 1 and 2 in opposite corners of the screen because these inputs control the progress of the user through the grasping pipeline, and we wish to minimize confusion between an accidental selection of these two options. The middle two options modify the demonstrated approach direction, and accidental selections have minimal impact. 
 
@@ -86,11 +84,13 @@ We placed targets 1 and 2 in opposite corners of the screen because these inputs
 
 \subsection{System 2 Pipeline}
 \label{section:pipeline-v3}
-\emph{Initialization:} The subject is shown presented with a view of the scene from the perspective of the depth camera. The user sends input 1 to activate the object recognition system. If the recognized objects align well with the point cloud sent, they can accept the results with input 1. If not, they can rerun the recognition system with input 2.
+We made a number of modifications to several of the stages of the pipeline shown in figure \ref{fig:pipeline_2}.
+
+\emph{Initialization:} The subject is presented with a view of the scene from the perspective of the depth camera. The user sends input 1 to activate the object recognition system. If the recognized objects align well with the point cloud sent, they can accept the results with input 1. If not, they can rerun the recognition system with input 2.
 
 \emph{Object Selection:} The first detected object is highlighted in green as the target object. To select an object as a target, the user sends input 2. To cycle to the next object in the recognized object list the user sends input 1. The non-target objects are all highlighted in red. The non-target objects are replaced with lower resolution models when a target is selected, which makes the planning phases faster. 
 
-\emph{Initial Review:} The user is presented with a list of pre-planned grasps from a precomputed database. This phase has been modified from \emph{System 1} to present the user with a clearer visualization and reachability information. As they iterate through the grasp list, the grasp in the middle and bottom rows shift up and the next grasp in the list moves in to the bottom position. Moving the demonstration hand will also cause the grasp list to re-sort bringing the new approach direction to the top of the list. Reachable grasps are presented on a green background, while unreachable grasps are presented on a red background. The user sends input 1 to increment through the grasp list. When the user finds a reasonable looking grasp, they send input 2 to select the grasp.
+\emph{Initial Review:} The user is presented with a list of pre-planned grasps from a precomputed database. This phase has been modified from \emph{System 1} to present the user with a clearer visualization and reachability information. As they iterate through the grasp list, the grasp in the middle and bottom rows shift up and the next grasp in the list moves in to the bottom position. When the user moves the demonstration hand, the grasp list is re-sorted, bringing grasps from the new approach direction to the top of the list. Reachable grasps are presented on a green background, while unreachable grasps are presented on a red background. The user sends input 1 to increment through the grasp list. When the user finds a reasonable grasp, they send input 2 to select the grasp.
 
 \emph{Planner Initialization:} The user is presented with the choice to either accept the grasp from the previous phase with input 1, proceeding straight to the Grasp Choice Confirmation phase or they can send input 2 to refine their chosen grasp further.
 
@@ -102,7 +102,7 @@ We placed targets 1 and 2 in opposite corners of the screen because these inputs
 
 
 \subsection{Validation}
-To validate this system, we recruited a male 30 year old impaired subject with limited upper limb mobility due to a C3-C4 spinal injury. All testing of \emph{System 3} was approved by the Institutional Review Board of the University of California, Davis under Protocol 251192-10. This subject had previous experience with the sEMG device, but had not been trained on this interface. For this work, we measured the activity in the subject's PA muscle to avoid the need to shave the subject's hair. The subject was recruited and trained at the UC Davis site, and operated the robot without ever having any interaction with it or the experiment site in the real world at the Columbia University Robotics Group lab. The setup is shown in Figure \ref{fig:user-semg}. The top of the figure shows the subject with the device attached and using the grasp planning system. The bottom left image is a closeup of the device, which demonstrates how low profile and minimalistic this device is. The bottom right shows the target scene in the robot workspace, with three container objects. The results of this experiment were published in \cite{Weisz2014}, and a video illustrating the experiment can be found at \url{https://youtu.be/tRPXmb9yUbA}.
+To validate this system, we recruited a male 30 year old impaired subject with limited upper limb mobility due to a C3-C4 spinal injury. All testing of \emph{System 3} was approved by the Institutional Review Board of the University of California, Davis under Protocol 251192-10. This subject had previous experience with the sEMG device, but had not been trained on this interface. For this work, we measured the activity in the subject's PA muscle to avoid the need to shave the subject's hair. The subject was recruited and trained at the UC Davis site, and operated the robot without ever having any interaction with it or the experiment site in the real world at the Columbia University Robotics Group lab. The setup is shown in Figure \ref{fig:user-semg}. The top of the figure shows the subject with the device attached and using the grasp planning system. The bottom left image is a closeup of the device, which demonstrates how low profile and minimalistic this device is. The bottom right shows the target scene in the robot workspace, with three container objects. A video illustrating the experiment can be found at \url{https://youtu.be/tRPXmb9yUbA}.
 \begin{figure}
 \centering
 \includegraphics[width=.8\columnwidth]{user_semg.png}
@@ -140,7 +140,7 @@ Detergent 1 & 564 & 14 & 14 & 2\\ \hline
 Detergent 2 & 609 & 9 & 50 & 0\\ \hline
 Shaving Gel & 910 & 12 & 11 & 1\\ \hline
 \end{tabular}
-\caption{sEMG Experiment 1 Results}
+\caption{\emph{System 2} Experimental Validation Results}
 \label{tab:semg_table_1}
 \end{table*}
 
@@ -149,8 +149,8 @@ These results, while promising from the perspective that a single experiment par
 
 \section{System 3: A practical assistive grasping platform}
 \setcounter{subsection}{0}
-\renewcommand*{\theHsection}{chX.\the\value{section}}
-Our initial results showed enough efficacy of this system that we developed a second prototype using a smaller, lower weight robotic arm, the Kinova Mico. Our initial prototype used an industrial arm, which is extremely accurate and has a large workspace, but is too heavy and expensive to be part of an assistive robotic setup. Additionally, this large, high precision arm does not reflect the performance characteristics of an arm which is affordable and practical for a robotic wheel chair. The Kinova Mico arm is more suitable for mounting on a wheel chair. 
+%\renewcommand*{\theHsection}{chX.\the\value{section}}
+These results showed enough efficacy of this system that we developed an enhanced system, \emph{System 3},  that uses a smaller, lower weight robotic arm, the Kinova Mico. \emph{System 1} and \emph{System 2} used an industrial arm, which is extremely accurate and has a large workspace, but is too heavy and expensive to be part of an assistive robotic setup. Additionally, this large, high precision arm does not reflect the performance characteristics of an arm which is affordable and practical for a portable assistive device that could be mounted either on a table or a wheelchair.
 We also sought feedback from our colleagues at the Columbia Medical Center who worked with this same sEMG device in stroke patients. Their advice was that our user interface needed further streamlining. We also sought to resolve the online reachability checking issue by integrating a faster planner. 
 
 \subsection{Adaptations For the Mico Manipulator}
@@ -192,9 +192,11 @@ In this system, the UI window is adaptive, providing more visual cues to the use
 \caption{\emph{System 3 - Grasp Refinement State.} The buttons on the right function as both guides for the result of hitting the color coded input options that will be presented to the use, as well as buttons that the user and experimenter use during the training stage. The sEMG is interface overlaid on the planning scene with the selected target highlighted in green.}
 \label{fig:ui-4-total-a}
 \end{subfigure}
+\caption{Screen shots of \emph{System 3} pipeline stages.}
+\label{fig:ui-4-snapshots}
 \end{figure}
 
-\subsection{System 4 Pipeline}
+\subsection{System 3 Pipeline}
 The updated pipeline is slightly shorter and makes more varied use of inputs 3 and 4. 
 
 \emph{Object Recognition and Selection:} This phase combines the first two phases of \emph{System 2}. To select an object as a target, the user sends input 2. To cycle to the next object in the recognized object list the user sends input 3, which will continuously iterate through the grasps until the user leaves the rest area. To rerun the object recognition system the user sends input 1. While the recognition system is still running, the whole screen is highlighted in red and it is not possible to proceed to the next phase until the recognition finishes. 
@@ -234,171 +236,172 @@ We placed the objects on the table in proximity to one another as shown in Figur
 
 \subsubsection{Results}
 \label{sec:semg_results}
-The results of the experiment for 5 subjects are tabulated in Tab. \ref{tab:results_3}. On average, the subjects were successful in grasping 82\% of the objects within 92 seconds of the first time their cursor left the rest area. With respect to speed,  results are comparable, and indeed somewhat better than the amount of time it took subjects to grasp objects with the Emotiv Epoc, even though the subject may have to iterate over the possible options before selecting them. Subjects 2 and 3 were the best able to control the cursor, having previously been able to move their ears already, and also performed the best in these experiments. These results indicate that the underlying planning system is providing options that the less capable subjects are not exploring because they are having more difficult with the UI. 
+The results of the experiment for 5 subjects are tabulated in Table \ref{tab:results_3}. On average, the subjects were successful in grasping 82\% of the objects within 92 seconds of the first time their cursor left the rest area. With respect to speed,  results are comparable, and indeed somewhat better than the amount of time it took subjects to grasp objects with the Emotiv Epoc, even though the subject may have to iterate over the possible options before selecting them. Subjects 2 and 3 were the best able to control the cursor, having previously been able to move their ears already, and also performed the best in these experiments. These results indicate that the underlying planning system is providing options that the less capable subjects are not exploring because they are having more difficult with the UI. 
 
 For the shampoo bottle, there are relatively fewer grasps that can succeed as compared to the rotationally symmetric shaving gel bottle and the taller, sloping detergent bottle. The only feasible grasps from the side for the shampoo bottle are directly from the side, aligned with the wide axis of the bottle, as demonstrated in Figure \ref{fig:silly-putty}. This narrow feasible region and the potential for many collisions with the other objects in the scene during the reaching motion to this region makes this a particularly difficult grasp, especially when the clearance around the grasp is as tight as it is in Figure \ref{fig:silly-putty}. Without the partial plan caching implemented in the online trajectory planner, planning grasps to this region using stochastic, sampling based planners is extremely unreliable. With the caching scheme, this grasp was successfully found 100\% of the time, although the planning time is somewhat longer than the other grasp tasks.  
 
-% \singlespace
-% \begin{table}[t]
-% \raggedleft
-% \begin{minipage}[t]{0.4\columnwidth}
-% \begin{tabular}[t!]{ | c c c c | }
-% \hline
-% Grasp & Subject & Success & Time \\ \hline \hline
-% \multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Detergent Bottle Top\end{minipage}} & 1 & Yes & 75 \\ 
-% & 2 & Yes & 53 \\ 
-% & 3 & No & 45 \\
-% & 4 & No & 122 \\
-% & 5 & Yes & 135 \\ 
-% & Mean & 60\% & 86\\\hline
-% \multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Detergent Bottle Side\end{minipage}} & 1 & No & 66 \\ 
-% & 2 & Yes & 40 \\ 
-% & 3 & Yes & 52 \\
-% & 4 & Yes & 80 \\
-% & 5 & Yes & 85 \\ 
-% & Mean & 80\% & 64\\\hline
-% \multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Detergent Bottle Open Choice\end{minipage}} & 1 & Yes & 50 \\ 
-% & 2 & Yes & 57 \\ 
-% & 3 & Yes & 53 \\
-% & 4 & Yes & 135 \\
-% & 5 & Yes & 128 \\ 
-% & Mean & 100\% & 85\\\hline
-% \multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shampoo Bottle Top\end{minipage}} & 1 & Yes & 151 \\ 
-% & 2 & Yes & 72 \\ 
-% & 3 & Yes & 60\\
-% & 4 & No & 126 \\
-% & 5 & No & 104 \\ 
-% & Mean & 60\% & 102\\\hline
-% \multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shampoo Bottle Side\end{minipage}} & 1 & Yes & 134 \\
-% &2 & Yes & 95 \\
-% &3 & Yes & 132 \\
-% &4 & Yes & 164 \\
-% &5 & Yes & 143 \\ 
-% & Mean & 100\% & 133\\\hline
-% \end{tabular}
-% \end{minipage}
-% \hspace{.01\columnwidth}
-% \raggedright
-% \begin{minipage}[!t]{.4\columnwidth}
-% \begin{tabular}[t!]{ | c c c c | }
-% \hline
-% Grasp & Subject & Success & Time \\ \hline \hline
-% \multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shampoo Bottle Open Choice\end{minipage}} & 1 & Yes & 93 \\
-% &2 & Yes & 121 \\
-% &3 & Yes & 63 \\
-% &4 & Yes & 95 \\
-% &5 & Yes & 117 \\ 
-% & Mean & 100\% & 98\\\hline 
-% \multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shaving Gel Top\end{minipage}} & 1 & No & 83 \\ 
-% & 2 & No & 123 \\ 
-% & 3 & Yes & 112\\
-% & 4 & No & 139 \\
-% & 5 & Yes & 97 \\ 
-% & Mean & 60\% & 111\\\hline 
-% \multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shaving Gel Side\end{minipage}} & 1 & Yes & 65 \\
-% &2 & Yes & 52 \\
-% &3 & Yes & 57 \\
-% &4 & Yes & 88 \\
-% &5 & Yes & 92 \\ 
-% & Mean & 100\% & 71\\\hline 
-% \multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shaving Gel Open Choice\end{minipage}} & 1 & No & 73 \\
-% &2 & Yes & 59 \\
-% &3 & Yes & 76 \\
-% &4 & Yes & 81 \\
-% &5 & Yes & 85 \\ 
-% & Mean & 80\% & 75\\\hline 
-% \multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Average Performance\end{minipage}} & 1 & 66\% & 87 \\
-% &2 & 88\% & 75 \\
-% &3 & 88\% & 72 \\
-% &4 & 77\% & 114 \\
-% &5 & 88\% &  109\\ 
-% & Mean & 82\% & 92\\\hline 
-% \end{tabular}
-% \end{minipage}
-% \caption{Results from Experiment 3. On average, the subjects were successful in grasping 82\% of the objects within 92 seconds of the first time their cursor left rest area.}
-% \label{tab:results_3}
-% \end{table}
-% \doublespace
+ \singlespace
+ \begin{table*}[t]
+ \centering
+ \begin{minipage}[t]{0.5\columnwidth}
+ \begin{tabular}[t!]{ | c c c c | }
+ \hline
+ Grasp & Subject & Success & Time \\ \hline \hline
+ \multirow{6}{*}{\begin{minipage}[t]{0.24\columnwidth}Detergent Bottle Top\end{minipage}} & 1 & Yes & 75 \\ 
+ & 2 & Yes & 53 \\ 
+ & 3 & No & 45 \\
+ & 4 & No & 122 \\
+ & 5 & Yes & 135 \\ 
+ & Mean & 60\% & 86\\\hline
+ \multirow{6}{*}{\begin{minipage}[t]{0.24\columnwidth}Detergent Bottle Side\end{minipage}} & 1 & No & 66 \\ 
+ & 2 & Yes & 40 \\ 
+ & 3 & Yes & 52 \\
+ & 4 & Yes & 80 \\
+ & 5 & Yes & 85 \\ 
+ & Mean & 80\% & 64\\\hline
+ \multirow{6}{*}{\begin{minipage}[t]{0.24\columnwidth}Detergent Bottle Open Choice\end{minipage}} & 1 & Yes & 50 \\ 
+ & 2 & Yes & 57 \\ 
+ & 3 & Yes & 53 \\
+ & 4 & Yes & 135 \\
+ & 5 & Yes & 128 \\ 
+ & Mean & 100\% & 85\\\hline
+ \multirow{6}{*}{\begin{minipage}[t]{0.24\columnwidth}Shampoo Bottle Top\end{minipage}} & 1 & Yes & 151 \\ 
+ & 2 & Yes & 72 \\ 
+ & 3 & Yes & 60\\
+ & 4 & No & 126 \\
+ & 5 & No & 104 \\ 
+ & Mean & 60\% & 102\\\hline
+ \multirow{6}{*}{\begin{minipage}[t]{0.24\columnwidth}Shampoo Bottle  Side\end{minipage}} & 1 & Yes & 134 \\
+ &2 & Yes & 95 \\
+ &3 & Yes & 132 \\
+ &4 & Yes & 164 \\
+ &5 & Yes & 143 \\ 
+ & Mean & 100\% & 133\\\hline
+ \end{tabular}
+ \end{minipage}
+ \hspace{.15\columnwidth}
+ \begin{minipage}[!t]{.5\columnwidth}
+ \begin{tabular}[t!]{ | c c c c | }
+ \hline
+ Grasp & Subject & Success & Time \\ \hline \hline
+ \multirow{6}{*}{\begin{minipage}[t]{0.24\columnwidth}Shampoo Bottle Open Choice\end{minipage}} & 1 & Yes & 93 \\
+ &2 & Yes & 121 \\
+ &3 & Yes & 63 \\
+ &4 & Yes & 95 \\
+ &5 & Yes & 117 \\ 
+ & Mean & 100\% & 98\\\hline 
+ \multirow{6}{*}{\begin{minipage}[t]{0.24\columnwidth}Shaving Gel Top\end{minipage}} & 1 & No & 83 \\ 
+ & 2 & No & 123 \\ 
+ & 3 & Yes & 112\\
+ & 4 & No & 139 \\
+ & 5 & Yes & 97 \\ 
+ & Mean & 60\% & 111\\\hline 
+ \multirow{6}{*}{\begin{minipage}[t]{0.24\columnwidth}Shaving Gel Side\end{minipage}} & 1 & Yes & 65 \\
+ &2 & Yes & 52 \\
+ &3 & Yes & 57 \\
+ &4 & Yes & 88 \\
+ &5 & Yes & 92 \\ 
+ & Mean & 100\% & 71\\\hline 
+ \multirow{6}{*}{\begin{minipage}[t]{0.24\columnwidth}Shaving Gel Open Choice\end{minipage}} & 1 & No & 73 \\
+ &2 & Yes & 59 \\
+ &3 & Yes & 76 \\
+ &4 & Yes & 81 \\
+ &5 & Yes & 85 \\ 
+ & Mean & 80\% & 75\\\hline 
+ \multirow{6}{*}{\begin{minipage}[t]{0.24\columnwidth}Average Performance\end{minipage}} & 1 & 66\% & 87 \\
+ &2 & 88\% & 75 \\
+ &3 & 88\% & 72 \\
+ &4 & 77\% & 114 \\
+ &5 & 88\% &  109\\ 
+ & Mean & 82\% & 92\\\hline 
+ \end{tabular}
+ \end{minipage}
 
-%\singlespace
-\begin{table*}[ht!]
-\raggedleft
-\begin{minipage}[t]{0.5\textwidth}
-\begin{tabular}[t!]{ | c c c c | }
-\hline
-Grasp & Subject & Success & Time \\ \hline \hline
-\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Detergent Bottle Top\end{minipage}} & 1 & Yes & 75 \\ 
-& 2 & Yes & 53 \\ 
-& 3 & No & 45 \\
-& 4 & No & 122 \\
-& 5 & Yes & 135 \\ 
-& Mean & 60\% & 86\\\hline
-\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Detergent Bottle Side\end{minipage}} & 1 & No & 66 \\ 
-& 2 & Yes & 40 \\ 
-& 3 & Yes & 52 \\
-& 4 & Yes & 80 \\
-& 5 & Yes & 85 \\ 
-& Mean & 80\% & 64\\\hline
-\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Detergent Bottle Open Choice\end{minipage}} & 1 & Yes & 50 \\ 
-& 2 & Yes & 57 \\ 
-& 3 & Yes & 53 \\
-& 4 & Yes & 135 \\
-& 5 & Yes & 128 \\ 
-& Mean & 100\% & 85\\\hline
-\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shampoo Bottle Top\end{minipage}} & 1 & Yes & 151 \\ 
-& 2 & Yes & 72 \\ 
-& 3 & Yes & 60\\
-& 4 & No & 126 \\
-& 5 & No & 104 \\ 
-& Mean & 60\% & 102\\\hline
-\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shampoo Bottle Side\end{minipage}} & 1 & Yes & 134 \\
-&2 & Yes & 95 \\
-&3 & Yes & 132 \\
-&4 & Yes & 164 \\
-&5 & Yes & 143 \\ 
-& Mean & 100\% & 133\\\hline
-\end{tabular}
-\end{minipage}
-\raggedleft
-\begin{minipage}[!t]{.4\textwidth}
-\begin{tabular}[t!]{ | c c c | }
-\hline
-Grasp & Success & Time \\ \hline \hline
-\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shampoo Bottle Open Choice\end{minipage}}& Yes & 93 \\
-& Yes & 121 \\
-& Yes & 63 \\
-& Yes & 95 \\
-& Yes & 117 \\ 
-& 100\% & 98\\\hline 
-\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shaving Gel Top\end{minipage}} & No & 83 \\ 
-& No & 123 \\ 
-& Yes & 112\\
-& No & 139 \\
-& Yes & 97 \\ 
-&  60\% & 111\\\hline 
-\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shaving Gel Side\end{minipage}} & Yes & 65 \\
-& Yes & 52 \\
-& Yes & 57 \\
-& Yes & 88 \\
-& Yes & 92 \\ 
-& 100\% & 71\\\hline 
-\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shaving Gel Open Choice\end{minipage}} & No & 73 \\
-& Yes & 59 \\
-& Yes & 76 \\
-& Yes & 81 \\
-& Yes & 85 \\ 
-& 80\% & 75\\\hline 
-\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Average Performance\end{minipage}} & 66\% & 87 \\
-& 88\% & 75 \\
-& 88\% & 72 \\
-& 77\% & 114 \\
-& 88\% &  109\\ 
-& 82\% & 92\\\hline 
-\end{tabular}
-\end{minipage}
-\caption{Results from Experiment 3. On average, the subjects were successful in grasping 82\% of the objects within 92 seconds of the first time their cursor left rest area.}
-\label{tab:results_3}
-\end{table*}
+ \caption{Results from Experiment 3. On average, the subjects were successful in grasping 82\% of the objects within 92 seconds of the first time their cursor left rest area.}
+ \label{tab:results_3}
+ 
+ \end{table*}
+% \doublespace
+%
+%%\singlespace
+%\begin{table*}[ht!]
+%\raggedleft
+%\begin{minipage}[t]{0.5\textwidth}
+%\begin{tabular}[t!]{ | c c c c | }
+%\hline
+%Grasp & Subject & Success & Time \\ \hline \hline
+%\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Detergent Bottle Top\end{minipage}} & 1 & Yes & 75 \\ 
+%& 2 & Yes & 53 \\ 
+%& 3 & No & 45 \\
+%& 4 & No & 122 \\
+%& 5 & Yes & 135 \\ 
+%& Mean & 60\% & 86\\\hline
+%\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Detergent Bottle Side\end{minipage}} & 1 & No & 66 \\ 
+%& 2 & Yes & 40 \\ 
+%& 3 & Yes & 52 \\
+%& 4 & Yes & 80 \\
+%& 5 & Yes & 85 \\ 
+%& Mean & 80\% & 64\\\hline
+%\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Detergent Bottle Open Choice\end{minipage}} & 1 & Yes & 50 \\ 
+%& 2 & Yes & 57 \\ 
+%& 3 & Yes & 53 \\
+%& 4 & Yes & 135 \\
+%& 5 & Yes & 128 \\ 
+%& Mean & 100\% & 85\\\hline
+%\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shampoo Bottle Top\end{minipage}} & 1 & Yes & 151 \\ 
+%& 2 & Yes & 72 \\ 
+%& 3 & Yes & 60\\
+%& 4 & No & 126 \\
+%& 5 & No & 104 \\ 
+%& Mean & 60\% & 102\\\hline
+%\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shampoo Bottle Side\end{minipage}} & 1 & Yes & 134 \\
+%&2 & Yes & 95 \\
+%&3 & Yes & 132 \\
+%&4 & Yes & 164 \\
+%&5 & Yes & 143 \\ 
+%& Mean & 100\% & 133\\\hline
+%\end{tabular}
+%\end{minipage}
+%\raggedleft
+%\begin{minipage}[!t]{.4\textwidth}
+%\begin{tabular}[t!]{ | c c c | }
+%\hline
+%Grasp & Success & Time \\ \hline \hline
+%\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shampoo Bottle Open Choice\end{minipage}}& Yes & 93 \\
+%& Yes & 121 \\
+%& Yes & 63 \\
+%& Yes & 95 \\
+%& Yes & 117 \\ 
+%& 100\% & 98\\\hline 
+%\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shaving Gel Top\end{minipage}} & No & 83 \\ 
+%& No & 123 \\ 
+%& Yes & 112\\
+%& No & 139 \\
+%& Yes & 97 \\ 
+%&  60\% & 111\\\hline 
+%\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shaving Gel Side\end{minipage}} & Yes & 65 \\
+%& Yes & 52 \\
+%& Yes & 57 \\
+%& Yes & 88 \\
+%& Yes & 92 \\ 
+%& 100\% & 71\\\hline 
+%\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Shaving Gel Open Choice\end{minipage}} & No & 73 \\
+%& Yes & 59 \\
+%& Yes & 76 \\
+%& Yes & 81 \\
+%& Yes & 85 \\ 
+%& 80\% & 75\\\hline 
+%\multirow{6}{*}{\begin{minipage}[t]{0.2\columnwidth}Average Performance\end{minipage}} & 66\% & 87 \\
+%& 88\% & 75 \\
+%& 88\% & 72 \\
+%& 77\% & 114 \\
+%& 88\% &  109\\ 
+%& 82\% & 92\\\hline 
+%\end{tabular}
+%\end{minipage}
+%\caption{Results from Experiment 3. On average, the subjects were successful in grasping 82\% of the objects within 92 seconds of the first time their cursor left rest area.}
+%\label{tab:results_3}
+%\end{table*}
 %\doublespace
 
 \section{Conclusions}
