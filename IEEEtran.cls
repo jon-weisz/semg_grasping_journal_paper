@@ -1,5 +1,5 @@
 %%
-%% IEEEtran.cls 2015/08/26 version V1.8b
+%%  IEEEtran.cls 2015/08/26 version V1.8b
 %% 
 %% This is the IEEEtran LaTeX class for authors of the Institute of 
 %% Electrical and Electronics Engineers (IEEE) Transactions journals and
